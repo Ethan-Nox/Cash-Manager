@@ -1,4 +1,4 @@
 # Cash-Manager
 
--> Trello\n
+-> Trello
     https://trello.com/b/dzUG0JMw/cash-manager
