@@ -15,4 +15,4 @@ class User(Base):
     genre = Column(Integer, nullable=True)
     hashed_password = Column(String)
     # articles = relationship("Article", back_populates="user")
-    role = Column(Integer)
+    role = Column(Integer, nullable=True)

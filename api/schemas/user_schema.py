@@ -12,7 +12,7 @@ class UserBase(BaseModel):
     #billList: list of bill (foreign keys)
     #articles: list of articles (foreign keys)
     #bankInfos: bank (foreign key)
-    role: int #(0 = member, 1 = admin)
+    role: int | None = Body(default=None) #(0 = member, 1 = admin)
 
 class UserCreate(UserBase):
     password: str

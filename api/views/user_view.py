@@ -13,8 +13,22 @@ def get_user_by_email(db: Session, email: str):
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(UserModel).offset(skip).limit(limit).all()
 
+def delete_user(db: Session, user_id: UUID):
+    db_user = db.query(UserModel).filter(UserModel.id == user_id).first()
+    db.delete(db_user)
+    db.commit()
+    return db_user
+
 def create_user(db: Session, user: UserSchema):
-    db_user = UserModel(email=user.email, hashed_password=Hasher.get_password_hash(user.password))
+    db_user = UserModel(
+        email=user.email,
+        hashed_password=Hasher.get_password_hash(user.password),
+        firstname=user.firstname,
+        lastname=user.lastname,
+        birthdate=user.birthdate,
+        genre=user.genre,
+        role=user.role
+    )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)

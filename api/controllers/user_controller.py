@@ -1,30 +1,29 @@
-from fastapi import Depends, HTTPException
-from sqlalchemy.orm import Session
-from schemas import user_schema
-from views import user_view
-from api.schemas.user_schema import User
-from main import app, get_db
-class UserController(app, get_db):
-    def __init__(self):
-        pass
+# from fastapi import Depends, HTTPException
+# from sqlalchemy.orm import Session
+# from schemas.user_schema import User as UserSchema, UserCreate
+# import views.user_view as UserView
+# from main import app, get_db
+# class UserController(app, get_db):
+#     def __init__(self):
+#         pass
 
-    @app.post("/users/", response_model=user_schema.User)
-    def create_user(user: user_schema.UserCreate, db: Session = Depends(get_db)):
-        db_user = user_view.get_user_by_email(db, email=user.email)
-        if db_user:
-            raise HTTPException(status_code=400, detail="Email already registered")
-        return user_view.create_user(db=db, user=user)
-
-
-    @app.get("/users/", response_model=list[user_schema.User])
-    def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-        users = user_view.get_users(db, skip=skip, limit=limit)
-        return users
+#     @app.post("/users/", response_model=UserSchema)
+#     def create_user(user: UserCreate, db: Session = Depends(get_db)):
+#         db_user = UserView.get_user_by_email(db, email=user.email)
+#         if db_user:
+#             raise HTTPException(status_code=400, detail="Email already registered")
+#         return UserView.create_user(db=db, user=user)
 
 
-    @app.get("/users/{user_id}", response_model=user_schema.User)
-    def read_user(user_id: int, db: Session = Depends(get_db)):
-        db_user = user_view.get_user(db, user_id=user_id)
-        if db_user is None:
-            raise HTTPException(status_code=404, detail="User not found")
-        return db_user
+#     @app.get("/users/", response_model=list[UserSchema])
+#     def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+#         users = UserView.get_users(db, skip=skip, limit=limit)
+#         return users
+
+
+#     @app.get("/users/{user_id}", response_model=UserSchema)
+#     def read_user(user_id: int, db: Session = Depends(get_db)):
+#         db_user = UserView.get_user(db, user_id=user_id)
+#         if db_user is None:
+#             raise HTTPException(status_code=404, detail="User not found")
+#         return db_user
