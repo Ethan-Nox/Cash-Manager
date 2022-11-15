@@ -1,10 +1,14 @@
 FROM python:3.10.0
 
-RUN pip install fastapi uvicorn pydantic
-# RUN pip install ./requirements.txt
+WORKDIR /CashManager
+COPY ./requirements.txt /CashManager/requirements.txt
 
 
-EXPOSE 8000
+# RUN pip install fastapi uvicorn pydantic
+RUN pip install -r ./requirements.txt
+
+
+EXPOSE 8000:8000
 
 WORKDIR /usr/src/CashManager
 
@@ -16,5 +20,4 @@ COPY ./main.py /CashManager/
 
 WORKDIR /CashManager
 
-# CMD ["uvicorn", "main:app"]
-CMD ["uvicorn", "main:app"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
