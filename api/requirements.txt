@@ -1,6 +1,21 @@
-python 3.10
-
+## python 3.10
 
 uvicorn
 fastapi[all]
+
+# for body model
 pydantic
+
+# for extra fields
+uuid
+datetime
+
+# for database
+sqlalchemy
+psycopg2
+
+#for loading environment variables
+python-dotenv
+
+#hashing
+passlib[bcrypt]
