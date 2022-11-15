@@ -8,16 +8,16 @@ COPY ./requirements.txt /CashManager/requirements.txt
 RUN pip install -r ./requirements.txt
 
 
-EXPOSE 8000:8000
+EXPOSE 8080:8080
 
 WORKDIR /usr/src/CashManager
 
-ENV PORT 8000
+ENV PORT 8080
 ENV HOST "0.0.0.0"
 
-COPY ./src/ /CashManager/src
-COPY ./main.py /CashManager/
+COPY ./* /CashManager/
+# COPY ./main.py /CashManager/
 
 WORKDIR /CashManager
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
