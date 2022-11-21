@@ -16,11 +16,16 @@ docker run -d --name cashmanager -p 8000:8000 fastapi
 
 # API INSTALL
 
-pip install requirements.txt
+```console
+pip install -r requirements.txt
+```
 
 # API RUN
 
+```console
 uvicorn api.main:app --reload
-# or
+```
+ **or**
+```console
 python3 -m uvicorn main:app --reload
-
+```

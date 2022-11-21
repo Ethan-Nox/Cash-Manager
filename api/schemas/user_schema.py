@@ -18,7 +18,6 @@ class UserCreate(UserBase):
     password: str
 
 class User(UserBase):
-    id: UUID
 
     class Config:
         orm_mode = True
