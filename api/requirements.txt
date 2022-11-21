@@ -19,3 +19,6 @@ python-dotenv
 
 #hashing
 passlib[bcrypt]
+
+#jwt
+python-jose[cryptography]
