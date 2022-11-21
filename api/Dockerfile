@@ -1,23 +1,14 @@
 FROM python:3.10.0
 
-WORKDIR /CashManager
-COPY ./requirements.txt /CashManager/requirements.txt
+WORKDIR /app
 
+COPY requirements.txt .
 
-# RUN pip install fastapi uvicorn pydantic
-RUN pip install -r ./requirements.txt
+RUN pip install -r requirements.txt
 
-
-EXPOSE 8080:8080
-
-WORKDIR /usr/src/CashManager
-
+COPY . .
 ENV PORT 8080
 ENV HOST "0.0.0.0"
+EXPOSE 8080
 
-COPY ./* /CashManager/
-# COPY ./main.py /CashManager/
-
-WORKDIR /CashManager
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080" , "--reload"]
