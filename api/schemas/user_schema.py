@@ -1,6 +1,5 @@
 from pydantic import BaseModel, EmailStr
 from datetime import date as Date
-from uuid import UUID
 from fastapi import Body
 
 class UserBase(BaseModel):
