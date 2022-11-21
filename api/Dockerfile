@@ -15,7 +15,7 @@ WORKDIR /usr/src/CashManager
 ENV PORT 8080
 ENV HOST "0.0.0.0"
 
-COPY ./* /CashManager/
+COPY . /CashManager/
 # COPY ./main.py /CashManager/
 
 WORKDIR /CashManager
