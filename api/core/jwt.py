@@ -57,3 +57,8 @@ async def get_current_user(token: str = Header(), db: Session = Depends(get_db))
     if user is None:
         raise credentials_exception
     return user
+
+async def is_admin(current_user: User = Depends(get_current_user)):
+    if current_user.role == 1:
+        return True
+    raise HTTPException(status_code=403, detail="Not admin")
