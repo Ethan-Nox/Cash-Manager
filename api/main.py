@@ -9,7 +9,7 @@ app = FastAPI()
 app.include_router(auth_route.router)
 app.include_router(
     user_route.router,
-    dependencies=[Depends(jwt.get_current_user)]
+    dependencies=[Depends(jwt.get_current_user), Depends(jwt.is_admin)],
 )
 
 @app.middleware("http")
