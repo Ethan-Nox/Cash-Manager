@@ -1,29 +1,43 @@
-# from fastapi import Depends, HTTPException
-# from sqlalchemy.orm import Session
-# from schemas.user_schema import User as UserSchema, UserCreate
-# import views.user_view as UserView
-# from main import app, get_db
-# class UserController(app, get_db):
-#     def __init__(self):
-#         pass
+from sqlalchemy.orm import Session
+from models.user_model import User as UserModel
+from schemas.user_schema import User as UserSchema
+from core.hashing import Hasher
+from uuid import UUID
 
-#     @app.post("/users/", response_model=UserSchema)
-#     def create_user(user: UserCreate, db: Session = Depends(get_db)):
-#         db_user = UserView.get_user_by_email(db, email=user.email)
-#         if db_user:
-#             raise HTTPException(status_code=400, detail="Email already registered")
-#         return UserView.create_user(db=db, user=user)
+def get_user(db: Session, user_id: UUID):
+    return db.query(UserModel).filter(UserModel.id == user_id).first()
 
+def get_user_by_email(db: Session, email: str):
+    return db.query(UserModel).filter(UserModel.email == email).first()
 
-#     @app.get("/users/", response_model=list[UserSchema])
-#     def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-#         users = UserView.get_users(db, skip=skip, limit=limit)
-#         return users
+def get_users(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(UserModel).offset(skip).limit(limit).all()
 
+def delete_user(db: Session, user_id: UUID):
+    db_user = db.query(UserModel).filter(UserModel.id == user_id).first()
+    db.delete(db_user)
+    db.commit()
+    return db_user
 
-#     @app.get("/users/{user_id}", response_model=UserSchema)
-#     def read_user(user_id: int, db: Session = Depends(get_db)):
-#         db_user = UserView.get_user(db, user_id=user_id)
-#         if db_user is None:
-#             raise HTTPException(status_code=404, detail="User not found")
-#         return db_user
+def create_user(db: Session, user: UserSchema):
+    db_user = UserModel(
+        email=user.email,
+        hashed_password=Hasher.get_password_hash(user.password),
+        firstname=user.firstname,
+        lastname=user.lastname,
+        birthdate=user.birthdate,
+        genre=user.genre,
+        role= 0
+    )
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+def login(db: Session, email: str, password: str):
+    user = get_user_by_email(db, email)
+    if not user:
+        return False
+    if not Hasher.verify_password(password, user.hashed_password):
+        return False
+    return user
