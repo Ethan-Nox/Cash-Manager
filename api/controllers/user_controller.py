@@ -27,7 +27,7 @@ def create_user(db: Session, user: UserSchema):
         lastname=user.lastname,
         birthdate=user.birthdate,
         genre=user.genre,
-        role=user.role
+        role= 0
     )
     db.add(db_user)
     db.commit()

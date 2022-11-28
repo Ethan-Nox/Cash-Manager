@@ -1,8 +1,5 @@
-from sqlalchemy.dialects.postgresql import UUID
-from pydantic import BaseModel, EmailStr
-from datetime import date as Date
-from fastapi import Body
-
+from uuid import UUID
+from pydantic import BaseModel
 
 class ArticleBase(BaseModel):
     id: UUID
@@ -18,7 +15,6 @@ class ArticleCreate(ArticleBase):
 
 
 class Article(ArticleBase):
-    # id: int
 
     class Config:
         orm_mode = True
