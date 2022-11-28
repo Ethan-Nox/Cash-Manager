@@ -22,7 +22,7 @@ def read_articles(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
 
 # Partch an article
 @router.patch("/articles/", response_model=article_schema.Article, tags=["articles"])
-def update_article(article: article_schema.ArticleUpdate, db: Session = Depends(get_db)):
+def update_article(article: article_schema.ArticleCreate, db: Session = Depends(get_db)):
     db_article = article_controller.get_article(db, id=article.id)
     if db_article is None:
         raise HTTPException(status_code=404, detail="Article not found")

@@ -22,3 +22,9 @@ passlib[bcrypt]
 
 #jwt
 python-jose[cryptography]
+
+#test
+pytest
+
+#admin
+sqladmin
