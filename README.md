@@ -10,7 +10,9 @@ Notre norme de commit :
 
 ADD/MOD/DEL : feature
 
-ex: [FRONTEND] ADD: base flutter application
+ex: 
+
+    [FRONTEND] ADD: base flutter application
     [FRONTEND] MOD: update myButton feature
     [FRONTEND] DEL: remove old login page
     
