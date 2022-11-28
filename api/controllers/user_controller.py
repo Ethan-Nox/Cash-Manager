@@ -34,6 +34,17 @@ def create_user(db: Session, user: UserSchema):
     db.refresh(db_user)
     return db_user
 
+def update_user(db: Session, user: UserSchema):
+    db_user = db.query(UserModel).filter(UserModel.id == user.id).first()
+    db_user.email = user.email
+    db_user.firstname = user.firstname
+    db_user.lastname = user.lastname
+    db_user.birthdate = user.birthdate
+    db_user.genre = user.genre
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
 def login(db: Session, email: str, password: str):
     user = get_user_by_email(db, email)
     if not user:

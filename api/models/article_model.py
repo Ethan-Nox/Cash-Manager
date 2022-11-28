@@ -12,4 +12,4 @@ class Article(Base):
     name = Column(String, index=True, unique=True)
     description = Column(String, nullable=True)
     category = Column(String)
-    leftAvailable = Column(Integer, nullable=True)
+    stock = Column(Integer, nullable=True) # Rename leftAvailable to stock
