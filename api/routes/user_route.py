@@ -31,3 +31,10 @@ def delete_user(user_id: str, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return user_controller.delete_user(db, user_id=user_id)
+
+@router.patch("/users/", response_model=user_schema.UserForAdmin, tags=["users"])
+def update_user(user: user_schema.UserForAdmin, db: Session = Depends(get_db)):
+    db_user = user_controller.get_user(db, user_id=user.id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user_controller.update_user(db, user=user)

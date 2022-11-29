@@ -22,7 +22,7 @@ def create_article(db: Session, article: ArticleSchema):
         name=article.name,
         description=article.description,
         category=article.category,
-        leftAvailable=article.leftAvailable
+        stock=article.stock # Il y avait un probleme de maj leftavailable / lestAvailable donc -> Rename leftAvailable to stock
     )
     db.add(db_article)
     db.commit()
@@ -35,7 +35,7 @@ def update_article(db: Session, article: ArticleSchema):
     db_article.name = article.name
     db_article.description = article.description
     db_article.category = article.category
-    db_article.leftAvailable = article.leftAvailable
+    db_article.stock = article.stock # Rename leftAvailable to stock
     db.commit()
     db.refresh(db_article)
     return db_article
