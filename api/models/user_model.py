@@ -8,11 +8,11 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    firstname = Column(String, nullable=True)
-    lastname = Column(String, nullable=True)
+    firstname = Column(String)
+    lastname = Column(String)
     email = Column(String, unique=True, index=True)
     birthdate = Column(DateTime(timezone=True))
-    genre = Column(Integer, nullable=True)
+    genre = Column(Integer)
     hashed_password = Column(String)
     # articles = relationship("Article", back_populates="user")
-    role = Column(Integer, nullable=True)
+    role = Column(Integer)
