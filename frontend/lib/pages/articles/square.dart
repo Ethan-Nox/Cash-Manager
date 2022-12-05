@@ -25,32 +25,41 @@ class _SquareState extends State<Square> {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Row(
             children: [
-              Container(
-                width: 290,
-                height: 120,
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: 80,
-                        height: 80,
-                        color: Colors.grey,
+              Flexible(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(color: Colors.white, spreadRadius: 3),
+                    ],
+                  ),
+                  width: 290,
+                  height: 120,
+                  // color: Colors.white,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 80,
+                          height: 80,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(widget.category),
-                        const SizedBox(height: 10),
-                        Text(widget.stock),
-                      ],
-                    ),
-                  ],
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(widget.category),
+                          const SizedBox(height: 10),
+                          Text(widget.stock),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
