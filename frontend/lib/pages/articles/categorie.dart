@@ -11,6 +11,8 @@ class Categorie extends StatefulWidget {
 }
 
 class _CategorieState extends State<Categorie> {
+  String? token;
+   List<String>? categories;
   final List articles = [
     {
       "price": 100,
@@ -31,45 +33,92 @@ class _CategorieState extends State<Categorie> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    LocalStorageService localStorageService = LocalStorageService();
+    localStorageService.getToken().then((value) {
+      setState(() {
+        token = value;
+      });
+    });
+  
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Color.fromARGB(255, 217, 207, 207),
         body: Center(
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                itemCount: articles.length,
-                itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Square(
-                      category: articles[index]['category'],
-                      stock: articles[index]['stock'].toString(),
+            child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                  itemCount: articles.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Square(
+                          category: articles[index]['category'],
+                          stock: articles[index]['stock'].toString(),
+                        ),
+                        
+                      ],
+                    );
+                  }),
+            ),
+        const SizedBox(height: 20),
+        Row(
+          children:  [
+             const SizedBox(
+              width: 10,
+            ),
+           const SizedBox(
+              height: 50, 
+              width: 300,
+              child: TextField(
+                
+                    decoration: InputDecoration(
+                      filled: true, //<-- SEE HERE
+                      fillColor: Colors.white, 
+                     
+                      labelText: 'Search',
+                      suffixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                      
                     ),
-                  ],
-                );
-        }),
+                ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            SizedBox(
+              height: 50, 
+              width: 80,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text('Scan'),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 400,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Elevated Button',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    ),
+            ),
+          ],
+        ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: 400,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Go with it',
+                    style: TextStyle(fontSize: 15, color: Colors.white),
                   ),
                 ),
-              )
-            ],
-          
-
-          )
-          ),
+              ),
+            )
+          ],
+        )),
       ),
     );
   }

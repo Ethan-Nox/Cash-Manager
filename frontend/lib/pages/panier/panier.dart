@@ -21,15 +21,15 @@ class _PanierState extends State<Panier> {
   final Tabs = [
      Center( 
      child:  Categorie(),
-     
     ),
-       const Center(
-      child: Text('Profile'),
-    ),
-    const Center(
+      const Center(
       child: Text('Cart'),
     ),
 
+       const Center(
+      child: Text('Profile'),
+    ),
+  
   ];
 
   static const IconData shopping_cart = IconData(0xe59c, fontFamily: 'MaterialIcons');
@@ -60,19 +60,19 @@ void initState() {
             label: 'Home',
             backgroundColor: Color.fromARGB(255, 217, 207, 207),
           ),
-          BottomNavigationBarItem(
+            BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: "Shopping Cart",
            
             backgroundColor: Color.fromARGB(255, 30, 28, 28),
           ),
-          
-          
+ 
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
             backgroundColor: Color.fromARGB(255, 91, 73, 72),
           ),
+            
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,

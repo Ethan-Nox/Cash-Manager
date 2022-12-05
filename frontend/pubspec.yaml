@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.0.15
   flutter_dotenv: ^5.0.2
   provider: ^6.0.4
+  searchfield: ^0.7.2
 
 dev_dependencies:
   flutter_test:

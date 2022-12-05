@@ -85,7 +85,35 @@ class _SquareState extends State<Square> {
     setState(() {
       isClicked = !isClicked;
     });
+    // if the button is clicked, add the category to the list of categories
+    if (isClicked) {
+      addCategory();
+      getCategories();
+    } else {
+      removeCategory();
+      getCategories();
+    }
     print(isClicked);
-    print(widget.category);
+    print(widget.category.toString()); 
+    print(widget.stock.toString());
+  }
+
+  // add the category to the list of categories
+  void addCategory() async {
+    LocalStorageService localStorageService = LocalStorageService();
+    localStorageService.addCategory(widget.stock);
+  }
+
+  // remove the category from the list of categories
+  void removeCategory() async {
+    LocalStorageService localStorageService = LocalStorageService();
+    localStorageService.removeCategory(widget.stock);
+  }
+
+// get the list of categories
+  void getCategories() async {
+    LocalStorageService localStorageService = LocalStorageService();
+    List<String> categories = await localStorageService.getCategories();
+    print(categories);
   }
 }
