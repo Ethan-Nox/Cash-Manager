@@ -27,9 +27,20 @@ def create_user(db: Session, user: UserSchema):
         lastname=user.lastname,
         birthdate=user.birthdate,
         genre=user.genre,
-        role=user.role
+        role= 0
     )
     db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+def update_user(db: Session, user: UserSchema):
+    db_user = db.query(UserModel).filter(UserModel.id == user.id).first()
+    db_user.email = user.email
+    db_user.firstname = user.firstname
+    db_user.lastname = user.lastname
+    db_user.birthdate = user.birthdate
+    db_user.genre = user.genre
     db.commit()
     db.refresh(db_user)
     return db_user

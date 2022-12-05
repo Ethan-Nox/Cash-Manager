@@ -2,9 +2,6 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-from fastapi.security import OAuth2PasswordRequestForm
-import json
-from uuid import UUID
 
 from core.database import get_db
 from core.jwt import LoginResponse, create_access_token
@@ -13,9 +10,13 @@ from schemas.user_schema import UserCreate
 
 router = APIRouter()
 
+class Logs(BaseModel):
+    email: str
+    password: str
+
 @router.post("/login", response_model=LoginResponse, tags=["auth"])
-async def login_for_access_token(email:str, password:str, db: Session = Depends(get_db)):
-    user: UserCreate = login(db, email = email, password = password)
+async def login_for_access_token(logs: Logs, db: Session = Depends(get_db)):
+    user: UserCreate = login(db, email = logs.email, password = logs.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
