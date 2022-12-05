@@ -20,8 +20,6 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,17 +175,20 @@ class _LoginState extends State<Login> {
   }
 
   loginUser() async {
-    // var https = DotEnv().env['API_URL'];
-    String url = "http://172.26.96.1:8080/login";
+    var https = dotenv.env['HTTPS'];
+    String url =  "$https/login";
     var msg = jsonEncode( {
           "email": emailController.text,
           "password": passwordController.text,
         }
-       
     );
     try {
       var response = await http.post(Uri.parse(url),
-          headers: {"Content-Type": "application/json"}, body: msg);
+          headers: {
+            "Content-Type": "application/json",
+            }, 
+          body: msg
+          );
       
    
       // ignore: avoid_print

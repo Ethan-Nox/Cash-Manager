@@ -52,7 +52,6 @@ class _CategorieState extends State<Categorie> {
                 );
         }),
               ),
-            
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(

@@ -349,7 +349,7 @@ class _RegisterState extends State<Register> {
   }
 
   registerUser() async {
-    var https = dotenv.env['API_URL'];
+    var https = dotenv.env['HTTPS'];
     String url = "$https/register";
     final msg = jsonEncode({
       "firstname": firstNameController.text,
