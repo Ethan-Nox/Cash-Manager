@@ -43,3 +43,8 @@ def delete_article(article_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Article not found")
     return article_controller.delete_article(db, id=article_id)
 
+
+@router.get("/test")
+def test():
+    return {"message": "test"}
+
