@@ -36,4 +36,10 @@ class LocalStorageService   {
     return categories;
   }
 
+  // clear the list of categories
+  Future<void> clearCategories() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('categories');
+  }
+
 }

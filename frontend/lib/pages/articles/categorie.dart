@@ -15,19 +15,15 @@ class _CategorieState extends State<Categorie> {
    List<String>? categories;
   final List articles = [
     {
-      "price": 100,
-      "name": "Air force 1",
-      "description": "Basket",
-      "category": "Chaussure",
+      "name": "Fruits",
       "stock": 100,
+      "image": "https://medias.toutelanutrition.com/blog/2020/08/banner-fruits.jpg",
       "id": "b46df330-d232-4be3-9c1e-81ff71a66789"
     },
     {
-      "price": 350,
-      "name": "Iphone 11",
-      "description": "telephone apple",
-      "category": "Apple",
-      "stock": 50,
+      "name": "Légumes",
+      "stock": 100,
+      "image": "https://img-3.journaldesfemmes.fr/HwUgYMFAXpGcR9A7Xrw4oF67Mf4=/1500x/smart/409e102e633d42759746f73e286431a3/ccmcms-jdf/11057068.jpg",
       "id": "7c6e6bf2-375a-40a5-aec0-f3b46f1a2a00"
     }
   ];
@@ -39,6 +35,11 @@ class _CategorieState extends State<Categorie> {
     localStorageService.getToken().then((value) {
       setState(() {
         token = value;
+      });
+    });
+    localStorageService.getCategories().then((value) {
+      setState(() {
+        categories = value;
       });
     });
   
@@ -58,8 +59,9 @@ class _CategorieState extends State<Categorie> {
                     return Column(
                       children: [
                         Square(
-                          category: articles[index]['category'],
+                          category: articles[index]['name'],
                           stock: articles[index]['stock'].toString(),
+                          image: articles[index]['image'],
                         ),
                         
                       ],
@@ -106,13 +108,16 @@ class _CategorieState extends State<Categorie> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: 400,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Go with it',
-                    style: TextStyle(fontSize: 15, color: Colors.white),
+              child: Visibility(
+                visible: categories != null,
+                child: Container(
+                  width: 400,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Go with it',
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
                   ),
                 ),
               ),
@@ -122,4 +127,7 @@ class _CategorieState extends State<Categorie> {
       ),
     );
   }
+
+  
+
 }
