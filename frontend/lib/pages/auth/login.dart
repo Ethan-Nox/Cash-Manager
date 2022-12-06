@@ -6,7 +6,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/caches/sharedPreferences.dart';
 import 'package:frontend/pages/auth/register.dart';
 import 'package:frontend/pages/home_view.dart';
+import 'package:frontend/providers/user_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -199,15 +201,11 @@ class _LoginState extends State<Login> {
       LocalStorageService localStorageService = LocalStorageService();
       localStorageService.setToken(token);
 
-      // final Map user = parsed['user'];
-      // print(user['firstname']);
-      // print(user['lastname']);
-      // print(user['email']);
-      // print(user['birthdate']);
-      // print(user['genre']);
-      // print(user['role']);
       // ignore: use_build_context_synchronously
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+
+      // ignore: use_build_context_synchronously
+      // Provider.of<UserProvider>(context).setCurrentUser();
     } catch (e) {
       // ignore: avoid_print
       print(e);

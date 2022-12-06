@@ -10,8 +10,10 @@ class AccountView extends StatefulWidget {
 class _AccountViewState extends State<AccountView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text('Account View'),
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: const Text('Account View'),
+      ),
     );
   }
 }

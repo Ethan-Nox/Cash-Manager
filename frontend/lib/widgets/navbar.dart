@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/providers/page_provider.dart';
+import 'package:frontend/providers/navbar_provider.dart';
 import 'package:provider/provider.dart';
 
 class NavbarWidget extends StatefulWidget {
@@ -13,10 +13,8 @@ class _NavbarWidgetState extends State<NavbarWidget> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-    // setState(() {
-    //   _selectedIndex = index;
-    // });
-    Provider.of<PageProvider>(context).changePage(_selectedIndex);
+    print("ON A CLICK");
+    Provider.of<NavBarProvider>(context, listen: false).changePage(index);
   }
 
   @override
@@ -27,7 +25,7 @@ class _NavbarWidgetState extends State<NavbarWidget> {
       iconSize: 30,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.search),
           label: 'Home',
           backgroundColor: Color.fromARGB(255, 217, 207, 207),
         ),
