@@ -32,40 +32,37 @@ class _CategorieState extends State<Categorie> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 217, 207, 207),
-      body: Center(
-          child: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-                itemCount: articles.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Square(
-                        category: articles[index]['category'],
-                        stock: articles[index]['stock'].toString(),
-                      ),
-                    ],
-                  );
-                }),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: 400,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  'Elevated Button',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
-                ),
+    return Center(
+        child: Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+              itemCount: articles.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    Square(
+                      category: articles[index]['category'],
+                      stock: articles[index]['stock'].toString(),
+                    ),
+                  ],
+                );
+              }),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: 400,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: const Text(
+                'Elevated Button',
+                style: TextStyle(fontSize: 15, color: Colors.white),
               ),
             ),
-          )
-        ],
-      )),
-    );
+          ),
+        )
+      ],
+    ));
   }
 }

@@ -8,6 +8,7 @@ class UserProvider extends ChangeNotifier {
 
   void setCurrentUser(User? user) {
     currentUser = user;
+    print(currentUser!.firstName);
     notifyListeners();
   }
 

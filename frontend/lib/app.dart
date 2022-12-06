@@ -21,7 +21,7 @@ class App extends StatelessWidget {
     int currentPageIndex =
         Provider.of<NavBarProvider>(context, listen: true).currentPageIndex;
     User? currentUser =
-        Provider.of<UserProvider>(context, listen: false).currentUser;
+        Provider.of<UserProvider>(context, listen: true).currentUser;
 
     return Scaffold(
         // bottomNavigationBar: const NavbarWidget(),
@@ -29,12 +29,9 @@ class App extends StatelessWidget {
         body: IndexedStack(
           index: currentPageIndex,
           children: <Widget>[
-            currentUser == null ? const Login() : const HomeView(),
-            currentUser != null ? const Login() : const CartView(),
-            currentUser != null ? const Login() : const AccountView(),
-            // Categorie(),
-            // CartView(),
-            // AccountView(),
+            currentUser == null ? const Login() : Categorie(),
+            currentUser == null ? const Login() : const CartView(),
+            currentUser == null ? const Login() : const AccountView(),
           ],
         ));
   }
