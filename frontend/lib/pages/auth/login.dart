@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/caches/sharedPreferences.dart';
 import 'package:frontend/pages/auth/register.dart';
-import 'package:frontend/pages/home.dart';
+import 'package:frontend/pages/home_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
-  Login({Key? key}) : super(key: key);
+  const Login({Key? key}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -51,9 +51,9 @@ class _LoginState extends State<Login> {
                       print("Clicked on Login");
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 190, 134, 35),
+                      backgroundColor: Color.fromARGB(255, 190, 134, 35),
                       minimumSize: const Size(150, 40),
-                      onPrimary: Colors.white,
+                      foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(32.0),
                       ),
@@ -69,9 +69,9 @@ class _LoginState extends State<Login> {
                     },
                     child: const Text('Register'),
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 203, 33, 209),
+                      backgroundColor: Color.fromARGB(255, 203, 33, 209),
                       minimumSize: const Size(150, 40),
-                      onPrimary: Colors.white,
+                      foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(32.0),
                       ),
@@ -133,8 +133,8 @@ class _LoginState extends State<Login> {
               width: 300,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: const Color.fromARGB(255, 203, 33, 209),
-                  onPrimary: Colors.white,
+                  backgroundColor: const Color.fromARGB(255, 203, 33, 209),
+                  foregroundColor: Colors.white,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
@@ -176,20 +176,17 @@ class _LoginState extends State<Login> {
 
   loginUser() async {
     var https = dotenv.env['HTTPS'];
-    String url =  "$https/login";
-    var msg = jsonEncode( {
-          "email": emailController.text,
-          "password": passwordController.text,
-        }
-    );
+    String url = "$https/login";
+    var msg = jsonEncode({
+      "email": emailController.text,
+      "password": passwordController.text,
+    });
     try {
       var response = await http.post(Uri.parse(url),
           headers: {
             "Content-Type": "application/json",
-            },
-          body: msg
-          );
-
+          },
+          body: msg);
 
       // ignore: avoid_print
       print("Response body: ${response.body}");
@@ -210,13 +207,10 @@ class _LoginState extends State<Login> {
       // print(user['genre']);
       // print(user['role']);
       // ignore: use_build_context_synchronously
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Home()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
     } catch (e) {
       // ignore: avoid_print
       print(e);
     }
   }
-
-
 }

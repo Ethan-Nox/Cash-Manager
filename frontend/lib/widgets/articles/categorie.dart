@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/caches/sharedPreferences.dart';
-import 'package:frontend/widgets/square.dart';
+import 'package:frontend/widgets/articles/square.dart';
 
 class Categorie extends StatefulWidget {
   Categorie({Key? key}) : super(key: key);

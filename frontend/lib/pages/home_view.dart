@@ -2,10 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/caches/sharedPreferences.dart';
+import 'package:frontend/pages/account_view.dart';
 import 'package:frontend/pages/auth/register.dart';
+import 'package:frontend/pages/cart_view.dart';
+import 'package:frontend/providers/page_provider.dart';
+import 'package:frontend/widgets/navbar.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:frontend/pages/articles/categorie.dart';
+import 'package:frontend/widgets/articles/categorie.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,34 +19,36 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String? token;
+  // String? token;
   int _selectedIndex = 0;
   final Tabs = [
     Center(
       child: Categorie(),
     ),
     const Center(
-      child: Text('Profile'),
+      child: AccountView(),
     ),
     const Center(
-      child: Text('Cart'),
+      child: CartView(),
     ),
   ];
 
-  static const IconData shopping_cart =
-      IconData(0xe59c, fontFamily: 'MaterialIcons');
+  // static const IconData shopping_cart =
+  //     IconData(0xe59c, fontFamily: 'MaterialIcons');
 
   @override
   void initState() {
     super.initState();
-    LocalStorageService localStorageService = LocalStorageService();
-    localStorageService.getToken().then((value) {
-      setState(() {
-        token = value;
-      });
-    });
+    // LocalStorageService localStorageService = LocalStorageService();
+    // localStorageService.getToken().then((value) {
+    //   setState(() {
+    //     token = value;
+    //   });
+    // });
+    // _selectedIndex = Provider.of<PageProvider>(context).getPage();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Tabs[_selectedIndex],
@@ -71,6 +78,10 @@ class _HomeState extends State<Home> {
         onTap: _onItemTapped,
       ),
     );
+    // return Scaffold(
+    //   body: Tabs[_selectedIndex],
+    //   bottomNavigationBar: const NavbarWidget(),
+    // );
   }
 
   void _onItemTapped(int index) {
