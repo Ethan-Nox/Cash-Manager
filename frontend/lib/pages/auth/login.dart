@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/caches/sharedPreferences.dart';
 import 'package:frontend/pages/auth/register.dart';
-import 'package:frontend/pages/panier/panier.dart';
+import 'package:frontend/pages/home.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
-        backgroundColor: Color.fromARGB(255, 203, 33, 209),
+        backgroundColor: const Color.fromARGB(255, 203, 33, 209),
       ),
       body: Center(
         child: Column(
@@ -186,11 +186,11 @@ class _LoginState extends State<Login> {
       var response = await http.post(Uri.parse(url),
           headers: {
             "Content-Type": "application/json",
-            }, 
+            },
           body: msg
           );
-      
-   
+
+
       // ignore: avoid_print
       print("Response body: ${response.body}");
       final Map parsed = json.decode(response.body);
@@ -211,12 +211,12 @@ class _LoginState extends State<Login> {
       // print(user['role']);
       // ignore: use_build_context_synchronously
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Panier()));
+          context, MaterialPageRoute(builder: (context) => Home()));
     } catch (e) {
       // ignore: avoid_print
       print(e);
     }
   }
 
- 
+
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/caches/sharedPreferences.dart';
-import 'package:frontend/pages/articles/square.dart';
+import 'package:frontend/widgets/square.dart';
 
 class Categorie extends StatefulWidget {
   Categorie({Key? key}) : super(key: key);
@@ -32,45 +32,40 @@ class _CategorieState extends State<Categorie> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 217, 207, 207),
-        body: Center(
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 217, 207, 207),
+      body: Center(
           child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
+        children: [
+          Expanded(
+            child: ListView.builder(
                 itemCount: articles.length,
                 itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Square(
-                      category: articles[index]['category'],
-                      stock: articles[index]['stock'].toString(),
-                    ),
-                  ],
-                );
-        }),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 400,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Elevated Button',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          
-
-          )
+                  return Column(
+                    children: [
+                      Square(
+                        category: articles[index]['category'],
+                        stock: articles[index]['stock'].toString(),
+                      ),
+                    ],
+                  );
+                }),
           ),
-      ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 400,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text(
+                  'Elevated Button',
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
+              ),
+            ),
+          )
+        ],
+      )),
     );
   }
 }
