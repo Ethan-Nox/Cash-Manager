@@ -4,9 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/caches/sharedPreferences.dart';
+import 'package:frontend/models/user.dart';
 import 'package:frontend/pages/auth/register.dart';
 import 'package:frontend/pages/home_view.dart';
+import 'package:frontend/providers/user_provider.dart';
+import 'package:frontend/widgets/articles/categorie.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -199,15 +203,19 @@ class _LoginState extends State<Login> {
       LocalStorageService localStorageService = LocalStorageService();
       localStorageService.setToken(token);
 
-      // final Map user = parsed['user'];
-      // print(user['firstname']);
-      // print(user['lastname']);
-      // print(user['email']);
-      // print(user['birthdate']);
-      // print(user['genre']);
-      // print(user['role']);
+      var newUser = User(
+        firstName: parsed['user']['firstname'],
+        lastName: parsed['user']['lastname'],
+        email: parsed['user']['email'],
+        genre: parsed['user']['genre'],
+        role: parsed['user']['role'],
+        birthdate: parsed['user']['birthdate'],
+      );
       // ignore: use_build_context_synchronously
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      Provider.of<UserProvider>(context, listen: false).setCurrentUser(newUser);
+
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => Categorie()));
     } catch (e) {
       // ignore: avoid_print
       print(e);

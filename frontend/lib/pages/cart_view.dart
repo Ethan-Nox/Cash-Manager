@@ -10,8 +10,14 @@ class CartView extends StatefulWidget {
 class _CartViewState extends State<CartView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text('Cart View'),
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Text('CartView'),
+          ],
+        ),
+      ),
     );
   }
 }
