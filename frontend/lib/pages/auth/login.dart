@@ -8,7 +8,7 @@ import 'package:frontend/models/user.dart';
 import 'package:frontend/pages/auth/register.dart';
 import 'package:frontend/pages/home_view.dart';
 import 'package:frontend/providers/user_provider.dart';
-import 'package:frontend/widgets/articles/categorie.dart';
+import 'package:frontend/pages/search_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
