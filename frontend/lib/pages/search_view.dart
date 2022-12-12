@@ -3,14 +3,14 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/caches/sharedPreferences.dart';
 import 'package:frontend/widgets/articles/square.dart';
 
-class Categorie extends StatefulWidget {
-  Categorie({Key? key}) : super(key: key);
+class SearchView extends StatefulWidget {
+  SearchView({Key? key}) : super(key: key);
 
   @override
-  State<Categorie> createState() => _CategorieState();
+  State<SearchView> createState() => _SearchState();
 }
 
-class _CategorieState extends State<Categorie> {
+class _SearchState extends State<SearchView> {
   final List articles = [
     {
       "price": 100,

@@ -10,7 +10,7 @@ import 'package:frontend/widgets/navbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:frontend/widgets/articles/categorie.dart';
+import 'package:frontend/pages/search_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
   final Tabs = [
     Center(
-      child: Categorie(),
+      child: SearchView(),
     ),
     const Center(
       child: AccountView(),
