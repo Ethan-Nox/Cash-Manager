@@ -7,8 +7,8 @@ import 'package:frontend/pages/cart_view.dart';
 import 'package:frontend/providers/navbar_provider.dart';
 import 'package:frontend/providers/user_provider.dart';
 import 'package:frontend/pages/search_view.dart';
-import 'package:frontend/widgets/navbar-v2.dart';
-import 'package:frontend/widgets/navbar.dart';
+import 'package:frontend/widgets/navbar/navbar-v2.dart';
+import 'package:frontend/widgets/navbar/navbar.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {

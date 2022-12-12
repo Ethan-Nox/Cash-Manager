@@ -6,7 +6,7 @@ import 'package:frontend/pages/account_view.dart';
 import 'package:frontend/pages/auth/register.dart';
 import 'package:frontend/pages/cart_view.dart';
 import 'package:frontend/providers/navbar_provider.dart';
-import 'package:frontend/widgets/navbar.dart';
+import 'package:frontend/widgets/navbar/navbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
