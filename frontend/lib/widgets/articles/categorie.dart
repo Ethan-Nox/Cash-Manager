@@ -25,6 +25,7 @@ final List list_Categorie = [
 
   @override
   Widget build(BuildContext context) {
+
     return 
 
     
@@ -49,8 +50,7 @@ final List list_Categorie = [
                       color: Colors.black,
                     ),
                   ],
-                );
-              
+                 );
                 },
                 scrollDirection: Axis.horizontal,
                
@@ -60,7 +60,7 @@ final List list_Categorie = [
            
 
             Container(
-              height: 120,
+              height: 100,
               color: Colors.blue[100],
               child: const Center(
                 child: Text("Categorie"),
@@ -70,5 +70,8 @@ final List list_Categorie = [
         ),
       ),
     );
+
+   
+
   }
 }
