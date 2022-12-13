@@ -21,9 +21,7 @@ jobs:
       run: docker-compose up -d --build
     - name: Run tests
       run: 
-        docker exec -it cash-manager_api_1 bash
-        pytest
-        exit
+        docker exec -it cash-manager_api_1 pytest
     - name: Stop containers
       if: always()
       run: docker-compose -f "docker-compose.yml" down
