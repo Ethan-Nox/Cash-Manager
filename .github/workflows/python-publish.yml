@@ -17,6 +17,7 @@ jobs:
     steps:
     - name: build
       run: |
+        ls
         docker-compose up --build -d
         docker exec-it cash-manager-db bash
         pytest
