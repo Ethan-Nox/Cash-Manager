@@ -21,7 +21,7 @@ jobs:
       run: docker-compose up -d --build
     - name: Run tests
       run: 
-        docker exec -it cash-manager-api-1 bash
+        docker exec -it cash-manager_api_1 bash
         pytest
         exit
     - name: Stop containers
