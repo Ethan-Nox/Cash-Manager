@@ -14,20 +14,7 @@ def create_article(article: article_schema.ArticleCreate, db: Session = Depends(
         raise HTTPException(status_code=400, detail="Article already registered with this name")
     return article_controller.create_article(db=db, article=article)
 
-#  GET ALL ARTICLES
-@router.get("/articles/", response_model=list[article_schema.Article], tags=["articles"])
-def read_articles(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    articles = article_controller.get_articles(db, skip=skip, limit=limit)
-    return articles
-
-@router.get("/article/{article_id}", response_model=article_schema.Article, tags=["articles"])
-def read_article(article_id: str, db: Session = Depends(get_db)):
-    db_article = article_controller.get_article(db, article_id=article_id)
-    if db_article is None:
-        raise HTTPException(status_code=404, detail="Article not found")
-    return db_article
-
-# Partch an article
+# Patch an article
 @router.patch("/articles/", response_model=article_schema.Article, tags=["articles"])
 def update_article(article: article_schema.Article, db: Session = Depends(get_db)): # Article et pas ArticleUpdate
     db_article = article_controller.get_article(db, id=article.id)
@@ -42,4 +29,3 @@ def delete_article(article_id: str, db: Session = Depends(get_db)):
     if db_article is None:
         raise HTTPException(status_code=404, detail="Article not found")
     return article_controller.delete_article(db, id=article_id)
-

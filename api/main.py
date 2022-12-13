@@ -1,6 +1,6 @@
 from fastapi import Depends, FastAPI, Request, Response
 from core.database import SessionLocal, Base, engine
-from routes import user_route, auth_route, article_route
+from routes import user_route, auth_route, article_route_user, article_route_admin
 from core import jwt
 from sqladmin import Admin, ModelView
 from models import user_model, article_model
@@ -14,7 +14,11 @@ app.include_router(
     dependencies=[Depends(jwt.get_current_user), Depends(jwt.is_admin)],
 )
 app.include_router(
-    article_route.router,
+    article_route_admin.router,
+    dependencies=[Depends(jwt.get_current_user), Depends(jwt.is_admin)],
+)
+app.include_router(
+    article_route_user.router,
     dependencies=[Depends(jwt.get_current_user)]
 )
 

@@ -12,6 +12,6 @@ class ArticleCreate(ArticleBase):
     pass
 
 class Article(ArticleBase):
-    id: UUID # On ajoute l'id ici car il sera obligatoire lors de la récupération d'un article
+    id: int # On ajoute l'id ici car il sera obligatoire lors de la récupération d'un article
     class Config:
         orm_mode = True
