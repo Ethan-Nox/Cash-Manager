@@ -39,8 +39,3 @@ def update_article(db: Session, article: ArticleSchema):
     db.commit()
     db.refresh(db_article)
     return db_article
-
-
-def get_article_by_name(db: Session, name: str):
-    return db.query(ArticleModel).filter(ArticleModel.name == name).first()
-

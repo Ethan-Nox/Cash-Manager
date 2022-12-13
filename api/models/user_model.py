@@ -1,8 +1,13 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, ARRAY, Table
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 from uuid import uuid4
 from core.database import Base
+
+article_user_association = Table('article_user_association', Base.metadata,
+    Column('articles_id', Integer, ForeignKey('articles.id')),
+    Column('users_id', String, ForeignKey('users.id'))
+)
 
 class User(Base):
     __tablename__ = "users"
@@ -12,7 +17,9 @@ class User(Base):
     lastname = Column(String)
     email = Column(String, unique=True, index=True)
     birthdate = Column(DateTime(timezone=True))
-    genre = Column(Integer)
+    genre = Column(Integer, nullable=False, default=0)
     hashed_password = Column(String)
-    # articles = relationship("Article", back_populates="user")
-    role = Column(Integer)
+    articles_id = Column(ARRAY(Integer, ForeignKey('articles.id')))
+    articles = relationship("Article", secondary="article_user_association")
+    role = Column(Integer, nullable=False, default=0)
+   # cart = relationship("Cart", back_populates="user")
