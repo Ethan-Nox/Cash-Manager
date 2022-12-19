@@ -8,7 +8,14 @@ from models import user_model, article_model
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+#AUTH
 app.include_router(auth_route.router)
+app.include_router(
+    auth_route.router_easy_log,
+    dependencies=[Depends(jwt.get_current_user)])
+
+#USER
 app.include_router(
     user_route.router,
     dependencies=[Depends(jwt.get_current_user), Depends(jwt.is_admin)],
@@ -17,10 +24,14 @@ app.include_router(
     article_route_admin.router,
     dependencies=[Depends(jwt.get_current_user), Depends(jwt.is_admin)],
 )
+
+#ARTICLE
 app.include_router(
     article_route_user.router,
     dependencies=[Depends(jwt.get_current_user)]
 )
+
+#IMAGE
 app.include_router(
     images.router,
 )
