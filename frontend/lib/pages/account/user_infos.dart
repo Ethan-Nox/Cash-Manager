@@ -49,7 +49,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
             context: context,
             initialDate: DateTime.now(),
             firstDate: DateTime(2022),
-            lastDate: DateTime(2025))
+            lastDate: DateTime(1950))
         .then((pickedDate) {
       if (pickedDate == null) {
         return;
