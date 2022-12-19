@@ -8,6 +8,7 @@ import 'package:frontend/pages/cart_view.dart';
 import 'package:frontend/providers/navbar_provider.dart';
 import 'package:frontend/providers/user_provider.dart';
 import 'package:frontend/widgets/dialog_alert.dart';
+import 'package:frontend/widgets/userAccount/accountList.dart';
 import 'package:provider/provider.dart';
 
 class AccountView extends StatefulWidget {
@@ -43,17 +44,6 @@ class _AccountViewState extends State<AccountView> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const UserInfosPage()),
-    );
-  }
-
-  historiqueAction() {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => const UserInfosPage()),
-    // );
-    return Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HistoriquePage()),
     );
   }
 
@@ -187,56 +177,15 @@ class _AccountViewState extends State<AccountView> {
                     const SizedBox(
                       height: 10,
                     ),
-                    MyWidget(
+                    UserAccountList(
                       title: "Informations personnelles",
                       onTap: (() => Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const UserInfosPage()),
                           )),
-                      function: (String val) {
-                        // print('I am a function with A return value');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const UserInfosPage()),
-                        );
-                      },
                       config: 'bottom',
                     ),
-
-                    // ElevatedButton(
-                    //   onPressed: () {},
-                    //   style: ElevatedButton.styleFrom(
-                    //     foregroundColor: Colors.black,
-                    //     backgroundColor: Colors.white,
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(6.0),
-                    //       side: const BorderSide(
-                    //           width: 1, // thickness
-                    //           color: Color.fromARGB(255, 221, 221, 221) // color
-                    //           ),
-                    //     ),
-                    //   ),
-                    //   child: Row(
-                    //     mainAxisSize: MainAxisSize.max,
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: const [
-                    //       Text(
-                    //         'Historique des Commandes',
-                    //         style: TextStyle(color: Colors.black),
-                    //       ), // <-- Text
-                    //       // SizedBox(
-                    //       //   width: 5,
-                    //       // ),
-                    //       Icon(
-                    //         Icons.arrow_forward_ios,
-                    //         size: 24.0,
-                    //         color: Color.fromARGB(255, 139, 139, 139),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -260,89 +209,24 @@ class _AccountViewState extends State<AccountView> {
                     const SizedBox(
                       height: 10,
                     ),
-                    // FilledCardExample(
-                    //   action: (() => Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => const UserInfosPage()),
-                    //       )),
-                    //   title: 'Historique',
-                    // ),
-                    // FilledCardExample(),
-                    MyWidget(
-                      // onTap: () {
-                      //   print('I am a function with NO return value');
-                      //   Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => const HistoriquePage()),
-                      //   );
-                      // },
+                    UserAccountList(
                       title: "Historique des commandes",
                       onTap: (() => Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const HistoriquePage()),
                           )),
-                      function: (String val) {
-                        // print('I am a function with A return value');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HistoriquePage()),
-                        );
-                      },
                       config: 'in',
                     ),
-                    MyWidget(
+                    UserAccountList(
                       title: "Informations de paiement",
                       onTap: (() => Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const InfoPaiementPage()),
                           )),
-                      function: (String val) {
-                        // print('I am a function with A return value');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const InfoPaiementPage()),
-                        );
-                      },
                       config: 'bottom',
                     ),
-                    // ElevatedButton(
-                    //   onPressed: () {},
-                    //   style: ElevatedButton.styleFrom(
-                    //     foregroundColor: Colors.black,
-                    //     backgroundColor: Colors.white,
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(6.0),
-                    //       side: const BorderSide(
-                    //           width: 1, // thickness
-                    //           color: Color.fromARGB(255, 221, 221, 221) // color
-                    //           ),
-                    //     ),
-                    //   ),
-                    //   child: Row(
-                    //     mainAxisSize: MainAxisSize.max,
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: const [
-                    //       Text(
-                    //         'Historique des Commandes',
-                    //         style: TextStyle(color: Colors.black),
-                    //       ), // <-- Text
-                    //       // SizedBox(
-                    //       //   width: 5,
-                    //       // ),
-                    //       Icon(
-                    //         Icons.arrow_forward_ios,
-                    //         size: 24.0,
-                    //         color: Color.fromARGB(255, 139, 139, 139),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -354,7 +238,6 @@ class _AccountViewState extends State<AccountView> {
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
                     title: const Text("Logout"),
-                    // content: Text(content),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () => {
@@ -372,11 +255,15 @@ class _AccountViewState extends State<AccountView> {
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.redAccent),
-                  textStyle:
-                      MaterialStateProperty.all<TextStyle>(const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  )),
+                  textStyle: MaterialStateProperty.all<TextStyle>(
+                    const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.all(10),
+                  ),
                 ),
                 child: const Text(
                   "Logout",
@@ -386,119 +273,6 @@ class _AccountViewState extends State<AccountView> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class FilledCardExample extends StatelessWidget {
-  const FilledCardExample(
-      {super.key, required this.title, required this.action});
-
-  final String title;
-  final Function()? action;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      // onPressed: () => {action},
-      onPressed: action,
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6.0),
-          side: const BorderSide(
-              width: 1, // thickness
-              color: Color.fromARGB(255, 221, 221, 221) // color
-              ),
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: TextStyle(color: Colors.black),
-          ), // <-- Text
-          // SizedBox(
-          //   width: 5,
-          // ),
-
-          IconButton(
-            icon: const Icon(
-              Icons.arrow_forward_ios,
-              size: 24.0,
-              color: Color.fromARGB(255, 139, 139, 139),
-            ),
-            tooltip: "Voir plus",
-            // onPressed: () {
-            //   action;
-            // },
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class MyWidget extends StatelessWidget {
-//Declare the functions
-  final Function()? onTap;
-  final Function(String val) function;
-  final String title;
-  final String config;
-
-  const MyWidget({
-    super.key,
-    required this.onTap,
-    required this.function,
-    required this.title,
-    required this.config,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      // onPressed: () => {action},
-      onPressed: onTap,
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6.0),
-          side: const BorderSide(
-              width: 1, // thickness
-              color: Color.fromARGB(255, 221, 221, 221) // color
-              ),
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: TextStyle(color: Colors.black),
-          ), // <-- Text
-          // SizedBox(
-          //   width: 5,
-          // ),
-
-          IconButton(
-            icon: const Icon(
-              Icons.arrow_forward_ios,
-              size: 24.0,
-              color: Color.fromARGB(255, 139, 139, 139),
-            ),
-            tooltip: "Voir plus",
-            // onPressed: () {
-            //   action;
-            // },
-            onPressed: onTap,
-          ),
-        ],
       ),
     );
   }
