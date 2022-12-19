@@ -1,8 +1,11 @@
 from sqlalchemy.orm import Session
 from models.user_model import User as UserModel
+from models.article_model import Article as ArticleModel
 from schemas.user_schema import User as UserSchema
+from controllers.article_controller import get_article
 from core.hashing import Hasher
 from uuid import UUID
+import copy
 
 def get_user(db: Session, user_id: UUID):
     return db.query(UserModel).filter(UserModel.id == user_id).first()
@@ -27,7 +30,8 @@ def create_user(db: Session, user: UserSchema):
         lastname=user.lastname,
         birthdate=user.birthdate,
         genre=user.genre,
-        role= 0
+        role=1,
+        articles=[]
     )
     db.add(db_user)
     db.commit()
@@ -52,3 +56,11 @@ def login(db: Session, email: str, password: str):
     if not Hasher.verify_password(password, user.hashed_password):
         return False
     return user
+
+def add_article_to_user(db: Session, article_id: UUID, user_id: UUID):
+    db_user: UserModel = get_user(db, user_id)
+    db_article: ArticleModel = get_article(db, article_id)
+    db_user.articles.append(db_article)
+    db.commit()
+    db.refresh(db_user)
+    return True
