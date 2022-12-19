@@ -102,49 +102,6 @@ class _UserInfosPageState extends State<UserInfosPage> {
 
   @override
   Widget build(BuildContext context) {
-    // firstNameController = TextEditingController()
-    //   ..text = Provider.of<UserProvider>(context, listen: false)
-    //       .currentUser!
-    //       .firstName;
-    // setState(() {
-    //   firstNameController.text =
-    //       Provider.of<UserProvider>(context, listen: false)
-    //           .currentUser!
-    //           .firstName;
-    //   lastNameController.text =
-    //       Provider.of<UserProvider>(context, listen: false)
-    //           .currentUser!
-    //           .lastName;
-    //   emailController.text =
-    //       Provider.of<UserProvider>(context, listen: false).currentUser!.email;
-    //   birthdateController.text =
-    //       Provider.of<UserProvider>(context, listen: false)
-    //           .currentUser!
-    //           .birthdate;
-    //   passwordController.text = '';
-
-    //   switch (Provider.of<UserProvider>(context, listen: false)
-    //       .currentUser!
-    //       .genre) {
-    //     case 0:
-    //       setState(() {
-    //         male = true;
-    //       });
-    //       break;
-    //     case 1:
-    //       setState(() {
-    //         female = true;
-    //       });
-    //       break;
-    //     case 2:
-    //       setState(() {
-    //         other = true;
-    //       });
-    //       break;
-    //     default:
-    //   }
-    // });
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mes informations'),
@@ -154,32 +111,19 @@ class _UserInfosPageState extends State<UserInfosPage> {
         child: Center(
           child: Column(
             children: [
-              // TextFormField(
-              //   autofocus: false,
-              //   // initialValue: firstNameController.text, // <-- SEE HERE
-              //   decoration: InputDecoration(
-              //     hintText: 'Enter Number',
-              //   ),
-              //   controller: firstNameController,
-              //   onChanged: (value) {
-              //     print("HAS CHANGED");
-              //     setState(() {
-              //       asChanged = true;
-              //     });
-              //   },
-              // ),
               const SizedBox(height: 10),
               const SizedBox(
                 width: 300,
                 height: 20,
                 child: Text(
-                  'First name',
+                  'Identité',
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
+              const SizedBox(height: 10),
               SizedBox(
                 width: 300,
                 child: TextField(
@@ -187,7 +131,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
-                    labelText: 'First Name',
+                    labelText: 'Prénom',
                   ),
                   controller: firstNameController,
                   onChanged: (value) {
@@ -198,17 +142,18 @@ class _UserInfosPageState extends State<UserInfosPage> {
                   },
                 ),
               ),
-              const SizedBox(
-                width: 300,
-                height: 20,
-                child: Text(
-                  'Last Name',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              const SizedBox(height: 10),
+              // const SizedBox(
+              //   width: 300,
+              //   height: 20,
+              //   child: Text(
+              //     'Last Name',
+              //     style: TextStyle(
+              //       fontSize: 15,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 width: 300,
                 child: TextField(
@@ -216,7 +161,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
-                    labelText: 'Last Name',
+                    labelText: 'Nom',
                   ),
                   controller: lastNameController,
                   onChanged: (value) {
@@ -328,17 +273,17 @@ class _UserInfosPageState extends State<UserInfosPage> {
               //       ),
               //     ])),
               const SizedBox(height: 20),
-              const SizedBox(
-                width: 300,
-                height: 20,
-                child: Text(
-                  'Birthday',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              // const SizedBox(
+              //   width: 300,
+              //   height: 20,
+              //   child: Text(
+              //     'Birthday',
+              //     style: TextStyle(
+              //       fontSize: 15,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 width: 300,
                 child: TextField(
@@ -346,7 +291,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
-                    labelText: 'Birthday',
+                    labelText: 'Date de Naissance',
                   ),
                   onTap: _selDatePicked,
                   controller: birthdateController,
@@ -374,7 +319,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
-                    labelText: 'Password',
+                    labelText: 'New Password',
                     labelStyle: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -517,6 +462,12 @@ class _UserInfosPageState extends State<UserInfosPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('User registered successfully'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(response.body),
           ),
         );
       }
