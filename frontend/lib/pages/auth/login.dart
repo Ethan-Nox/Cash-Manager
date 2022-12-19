@@ -1,14 +1,13 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/caches/sharedPreferences.dart';
 import 'package:frontend/models/user.dart';
 import 'package:frontend/pages/auth/register.dart';
-import 'package:frontend/pages/home_view.dart';
 import 'package:frontend/providers/user_provider.dart';
-import 'package:frontend/pages/search_view.dart';
+import 'package:frontend/services/LSservices.dart';
+import 'package:frontend/widgets/dialog_alert.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +22,9 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  late String name = "";
+  late String pss = "";
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +146,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 onPressed: loginUser,
-                child: const Text('Login'),
+                child: const Text('Connect'),
               ),
             ),
             const SizedBox(height: 20),
@@ -172,6 +174,24 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: 300,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 126, 126, 126),
+                  foregroundColor: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                ),
+                onPressed: () {
+                  GetFakeDataLocalStorage().then((value) =>
+                      value == true ? fakeLogin(name, pss) : print("No data"));
+                },
+                child: const Text('Continue with last Account'),
+              ),
+            ),
           ],
         ),
       ),
@@ -193,11 +213,11 @@ class _LoginState extends State<Login> {
           body: msg);
 
       // ignore: avoid_print
-      print("Response body: ${response.body}");
+      // print("Response body: ${response.body}");
       final Map parsed = json.decode(response.body);
-      print(parsed['token']);
-      print(parsed['user']);
-      print(parsed['token']['access_token']);
+      // print(parsed['token']);
+      // print(parsed['user']);
+      // print(parsed['token']['access_token']);
       String token = parsed['token']['access_token'];
 
       LocalStorageService localStorageService = LocalStorageService();
@@ -214,11 +234,87 @@ class _LoginState extends State<Login> {
       // ignore: use_build_context_synchronously
       Provider.of<UserProvider>(context, listen: false).setCurrentUser(newUser);
 
+      setFakeDataLocalStorage(emailController.text, passwordController.text);
+
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (context) => Categorie()));
     } catch (e) {
       // ignore: avoid_print
       print(e);
+    }
+  }
+
+  fakeLogin(user, psswd) async {
+    var https = dotenv.env['HTTPS'];
+    String url = "$https/login";
+    var msg = jsonEncode({
+      "email": user,
+      "password": psswd,
+    });
+    try {
+      var response = await http.post(Uri.parse(url),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: msg);
+
+      final Map parsed = json.decode(response.body);
+      String token = parsed['token']['access_token'];
+      print(token);
+      LocalStorageService localStorageService = LocalStorageService();
+      localStorageService.setToken(token);
+
+      var newUser = User(
+        firstName: parsed['user']['firstname'],
+        lastName: parsed['user']['lastname'],
+        email: parsed['user']['email'],
+        genre: parsed['user']['genre'],
+        role: parsed['user']['role'],
+        birthdate: parsed['user']['birthdate'],
+      );
+      // ignore: use_build_context_synchronously
+      Provider.of<UserProvider>(context, listen: false).setCurrentUser(newUser);
+
+      setFakeDataLocalStorage(emailController.text, passwordController.text);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+
+      return ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          action: SnackBarAction(
+            label: 'X',
+            onPressed: () {
+              // Code to execute.
+            },
+          ),
+          content: const Text('Informations manquantes ou incorrectes !'),
+          duration: const Duration(milliseconds: 1500),
+          width: 280.0, // Width of the SnackBar.
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0, // Inner padding for SnackBar content.
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<bool> GetFakeDataLocalStorage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? user = prefs.getString('lastUser');
+    String? psswd = prefs.getString('lastPassword');
+    if (user != null && psswd != null) {
+      setState(() {
+        name = user;
+        pss = psswd;
+      });
+      return true;
+    } else {
+      return false;
     }
   }
 }

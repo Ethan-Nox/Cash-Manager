@@ -65,14 +65,15 @@ class _SquareState extends State<Square> {
               const SizedBox(
                 width: 25,
               ),
-              FloatingActionButton(
-                backgroundColor: isClicked ? Colors.blue : Colors.white,
-                onPressed: changeColor,
-                child: Icon(
-                  isClicked ? Square.check : Icons.add,
-                  color: isClicked ? Colors.white : Colors.black,
-                ),
-              ),
+              // FloatingActionButton(
+              //   heroTag: isClicked ? "squareIconBtn1" : "squareIconBtn2",
+              //   backgroundColor: isClicked ? Colors.blue : Colors.white,
+              //   onPressed: changeColor,
+              //   child: Icon(
+              //     isClicked ? Square.check : Icons.add,
+              //     color: isClicked ? Colors.white : Colors.black,
+              //   ),
+              // ),
             ],
           ),
         ),
