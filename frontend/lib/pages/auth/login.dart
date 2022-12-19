@@ -25,6 +25,7 @@ class _LoginState extends State<Login> {
 
   late String name = "";
   late String pss = "";
+  late String token = "";
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +193,8 @@ class _LoginState extends State<Login> {
                   ),
                   onPressed: () {
                     GetFakeDataLocalStorage().then((value) => value == true
-                        ? fakeLogin(name, pss)
+                        // ? fakeLogin(name, pss)
+                        ? fakeLoginTkn()
                         : print("No data"));
                   },
                   child: const Text('Continue with last Account'),
@@ -241,10 +243,7 @@ class _LoginState extends State<Login> {
       // ignore: use_build_context_synchronously
       Provider.of<UserProvider>(context, listen: false).setCurrentUser(newUser);
 
-      setFakeDataLocalStorage(emailController.text, passwordController.text);
-
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => Categorie()));
+      // setFakeDataLocalStorage(emailController.text, passwordController.text);
     } catch (e) {
       // ignore: avoid_print
       print(e);
@@ -310,14 +309,65 @@ class _LoginState extends State<Login> {
     }
   }
 
+  fakeLoginTkn() async {
+    var https = dotenv.env['HTTPS'];
+    String url = "$https/login";
+    String tkn = token;
+
+    try {
+      var response = await http.get(Uri.parse(url),
+          headers: {"Content-Type": "application/json", "token": tkn});
+
+      final Map parsed = json.decode(response.body);
+      String token = parsed['token']['access_token'];
+      print(token);
+      LocalStorageService localStorageService = LocalStorageService();
+      localStorageService.setToken(token);
+
+      var newUser = User(
+        firstName: parsed['user']['firstname'],
+        lastName: parsed['user']['lastname'],
+        email: parsed['user']['email'],
+        genre: parsed['user']['genre'],
+        role: parsed['user']['role'],
+        birthdate: parsed['user']['birthdate'],
+      );
+      // ignore: use_build_context_synchronously
+      Provider.of<UserProvider>(context, listen: false).setCurrentUser(newUser);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+
+      return ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          action: SnackBarAction(
+            label: 'X',
+            onPressed: () {
+              // Code to execute.
+            },
+          ),
+          content: const Text('Informations manquantes ou incorrectes !'),
+          duration: const Duration(milliseconds: 1500),
+          width: 280.0, // Width of the SnackBar.
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0, // Inner padding for SnackBar content.
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+      );
+    }
+  }
+
   Future<bool> GetFakeDataLocalStorage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? user = prefs.getString('lastUser');
-    String? psswd = prefs.getString('lastPassword');
-    if (user != null && psswd != null) {
+    LocalStorageService localStorageService = LocalStorageService();
+    String? tkn = await localStorageService.getToken();
+
+    if (tkn != null) {
       setState(() {
-        name = user;
-        pss = psswd;
+        token = tkn;
       });
       return true;
     } else {
