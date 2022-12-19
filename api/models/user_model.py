@@ -6,7 +6,7 @@ from core.database import Base
 
 article_user_association = Table('article_user_association', Base.metadata,
     Column('articles_id', Integer, ForeignKey('articles.id')),
-    Column('users_id', String, ForeignKey('users.id'))
+    Column('users_id', UUID, ForeignKey('users.id'))
 )
 
 class User(Base):
@@ -22,4 +22,3 @@ class User(Base):
     articles_id = Column(ARRAY(Integer, ForeignKey('articles.id')))
     articles = relationship("Article", secondary="article_user_association")
     role = Column(Integer, nullable=False, default=0)
-   # cart = relationship("Cart", back_populates="user")

@@ -11,4 +11,5 @@ class Article(Base):
     name = Column(String, index=True, unique=True)
     description = Column(String, nullable=True)
     category = Column(String)
-    stock = Column(Integer, nullable=True) # Rename leftAvailable to stock
+    stock = Column(Integer, nullable=True)
+    image = Column(String, nullable=True)

@@ -1,17 +1,25 @@
-from uuid import UUID # Mauvais import de la lib uuid
 from pydantic import BaseModel
+from fastapi import Form
 
-class ArticleBase(BaseModel): # On ne met pas d'id ici sinon il sera obligatoire lors de la création d'un article
+class ArticleBase(BaseModel):
     price: float
     name: str
     description: str | None = None
     category: str | None = None
-    stock: int | None = None # Rename leftAvailable to stock
+    stock: int | None = None
+
 
 class ArticleCreate(ArticleBase):
+
+    @classmethod
+    def as_form(cls, price: float = Form(...), name: str = Form(...), description: str = Form(...),
+    category: str = Form(...), stock: int = Form(...)):
+        return cls(price=price, name=name, description=description, category=category, stock=stock)
+
     pass
 
 class Article(ArticleBase):
-    id: int # On ajoute l'id ici car il sera obligatoire lors de la récupération d'un article
+    id: int
+    image: str
     class Config:
         orm_mode = True
