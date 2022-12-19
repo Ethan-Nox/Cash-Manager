@@ -237,6 +237,7 @@ class _AccountViewState extends State<AccountView> {
                 onPressed: () => showDialog<String>(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
+                    // title: const Text("Logout"),
                     title: const Text("Logout"),
                     actions: <Widget>[
                       TextButton(
@@ -265,9 +266,14 @@ class _AccountViewState extends State<AccountView> {
                     const EdgeInsets.all(10),
                   ),
                 ),
-                child: const Text(
-                  "Logout",
-                  style: TextStyle(color: Colors.white),
+                // child: const Text(
+                //   "Logout",
+                //   style: TextStyle(color: Colors.white),
+                // ),
+                child: Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                  size: MediaQuery.of(context).size.width * 0.05,
                 ),
               )
             ],

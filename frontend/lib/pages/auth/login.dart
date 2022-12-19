@@ -192,10 +192,8 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   onPressed: () {
-                    GetFakeDataLocalStorage().then((value) => value == true
-                        // ? fakeLogin(name, pss)
-                        ? fakeLoginTkn()
-                        : print("No data"));
+                    getLocalData().then((value) =>
+                        value == true ? loginToken() : print("No data"));
                   },
                   child: const Text('Continue with last Account'),
                 ),
@@ -242,8 +240,6 @@ class _LoginState extends State<Login> {
       );
       // ignore: use_build_context_synchronously
       Provider.of<UserProvider>(context, listen: false).setCurrentUser(newUser);
-
-      // setFakeDataLocalStorage(emailController.text, passwordController.text);
     } catch (e) {
       // ignore: avoid_print
       print(e);
@@ -309,7 +305,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  fakeLoginTkn() async {
+  loginToken() async {
     var https = dotenv.env['HTTPS'];
     String url = "$https/login";
     String tkn = token;
@@ -361,7 +357,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  Future<bool> GetFakeDataLocalStorage() async {
+  Future<bool> getLocalData() async {
     LocalStorageService localStorageService = LocalStorageService();
     String? tkn = await localStorageService.getToken();
 
