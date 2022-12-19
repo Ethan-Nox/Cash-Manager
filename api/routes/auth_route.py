@@ -16,7 +16,7 @@ class Logs(BaseModel):
 
 @router.post("/login", response_model=LoginResponse, tags=["auth"])
 async def login_for_access_token(logs: Logs, db: Session = Depends(get_db)):
-    user: UserCreate = login(db, email = logs.email, password = logs.password)
+    user = login(db, email = logs.email, password = logs.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
