@@ -313,6 +313,7 @@ class _RegisterState extends State<Register> {
             SizedBox(
               width: 300,
               child: TextField(
+                obscureText: true,
                 obscuringCharacter: "*",
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(
