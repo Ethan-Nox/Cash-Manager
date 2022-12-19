@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI, Request, Response
 from core.database import SessionLocal, Base, engine
 from routes import user_route, auth_route, article_route_user, article_route_admin
-from core import jwt
+from core import jwt, images
 from sqladmin import Admin, ModelView
 from models import user_model, article_model
 
@@ -21,7 +21,9 @@ app.include_router(
     article_route_user.router,
     dependencies=[Depends(jwt.get_current_user)]
 )
-
+app.include_router(
+    images.router,
+)
 
 @app.middleware("http")
 async def db_session_middleware(request: Request, call_next):

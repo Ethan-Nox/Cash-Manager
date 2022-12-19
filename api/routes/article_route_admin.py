@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from core.database import get_db
 from schemas import article_schema
 from controllers import article_controller
@@ -8,15 +8,15 @@ router = APIRouter()
 
 # Create a new article
 @router.post("/article/", response_model=article_schema.Article, tags=["articles"])
-def create_article(article: article_schema.ArticleCreate, db: Session = Depends(get_db)):
-    db_article = article_controller.get_article_by_name(db, name=article.name) # get by name et non get by title
+async def create_article(article: article_schema.ArticleCreate = Depends(article_schema.ArticleCreate.as_form), file: UploadFile = File(...), db: Session = Depends(get_db)):
+    db_article = article_controller.get_article_by_name(db, name=article.name)
     if db_article:
         raise HTTPException(status_code=400, detail="Article already registered with this name")
-    return article_controller.create_article(db=db, article=article)
+    return await article_controller.create_article(db=db, article=article, file=file)
 
 # Patch an article
 @router.patch("/articles/", response_model=article_schema.Article, tags=["articles"])
-def update_article(article: article_schema.Article, db: Session = Depends(get_db)): # Article et pas ArticleUpdate
+def update_article(article: article_schema.Article, db: Session = Depends(get_db)):
     db_article = article_controller.get_article(db, id=article.id)
     if db_article is None:
         raise HTTPException(status_code=404, detail="Article not found")

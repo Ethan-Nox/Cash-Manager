@@ -1,7 +1,8 @@
+from fastapi import UploadFile
 from sqlalchemy.orm import Session
 from models.article_model import Article as ArticleModel
 from schemas.article_schema import Article as ArticleSchema
-from core.hashing import Hasher
+from core.images import upload_file
 from uuid import UUID
 
 def get_article(db: Session, article_id: UUID):
@@ -16,13 +17,14 @@ def delete_article(db: Session, article_id: UUID):
     db.commit()
     return db_article
 
-def create_article(db: Session, article: ArticleSchema):
+async def create_article(db: Session, article: ArticleSchema, file: UploadFile):
     db_article = ArticleModel(
         price=article.price,
         name=article.name,
         description=article.description,
         category=article.category,
-        stock=article.stock # Il y avait un probleme de maj leftavailable / lestAvailable donc -> Rename leftAvailable to stock
+        stock=article.stock,
+        image= await upload_file(file)
     )
     db.add(db_article)
     db.commit()
@@ -35,7 +37,12 @@ def update_article(db: Session, article: ArticleSchema):
     db_article.name = article.name
     db_article.description = article.description
     db_article.category = article.category
-    db_article.stock = article.stock # Rename leftAvailable to stock
+    db_article.stock = article.stock
+    db_article.image = article.image
     db.commit()
     db.refresh(db_article)
     return db_article
+
+def get_article_by_name(db: Session, name: str):
+    return db.query(ArticleModel).filter(ArticleModel.name == name).first()
+

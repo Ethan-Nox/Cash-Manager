@@ -28,3 +28,6 @@ pytest
 
 #admin
 sqladmin
+
+#images
+pillow
