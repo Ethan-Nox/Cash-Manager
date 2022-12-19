@@ -3,12 +3,11 @@ import 'package:frontend/models/user.dart';
 import 'package:frontend/pages/account_view.dart';
 import 'package:frontend/pages/auth/login.dart';
 import 'package:frontend/pages/cart_view.dart';
-// import 'package:frontend/pages/home_view.dart';
 import 'package:frontend/providers/navbar_provider.dart';
 import 'package:frontend/providers/user_provider.dart';
 import 'package:frontend/pages/search_view.dart';
 import 'package:frontend/widgets/navbar/navbar-v2.dart';
-import 'package:frontend/widgets/navbar/navbar.dart';
+// import 'package:frontend/widgets/navbar/navbar.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
@@ -22,6 +21,10 @@ class App extends StatelessWidget {
         Provider.of<NavBarProvider>(context, listen: true).currentPageIndex;
     User? currentUser =
         Provider.of<UserProvider>(context, listen: true).currentUser;
+
+    List oldInfos = Provider.of<UserProvider>(context, listen: true).oldInfos;
+
+
 
     return Scaffold(
         // bottomNavigationBar: currentUser == null ? null : const NavbarWidget(),

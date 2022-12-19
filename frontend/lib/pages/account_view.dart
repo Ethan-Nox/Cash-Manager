@@ -1,4 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/app.dart';
+import 'package:frontend/pages/account/historique.dart';
+import 'package:frontend/pages/account/info_paiement.dart';
+import 'package:frontend/pages/account/user_infos.dart';
+import 'package:frontend/pages/auth/login.dart';
+import 'package:frontend/pages/cart_view.dart';
+import 'package:frontend/providers/navbar_provider.dart';
+import 'package:frontend/providers/user_provider.dart';
+import 'package:frontend/widgets/dialog_alert.dart';
+import 'package:frontend/widgets/userAccount/accountList.dart';
+import 'package:provider/provider.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({Key? key}) : super(key: key);
@@ -8,11 +19,260 @@ class AccountView extends StatefulWidget {
 }
 
 class _AccountViewState extends State<AccountView> {
+  late String userName =
+      "${Provider.of<UserProvider>(context, listen: false).currentUser!.firstName} ${Provider.of<UserProvider>(context, listen: false).currentUser!.lastName}";
+
+  late String userEmail =
+      Provider.of<UserProvider>(context, listen: false).currentUser!.email;
+
+  logout() {
+    Navigator.pop(context, 'Cancel');
+    Provider.of<NavBarProvider>(context, listen: false).changePage(1);
+    Provider.of<UserProvider>(context, listen: false).resetCurrentUSer();
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) {
+        return const App();
+      }),
+      (r) {
+        return false;
+      },
+    );
+  }
+
+  void profileAction() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const UserInfosPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        child: const Text('Account View'),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    // CircleAvatar(
+                    //   radius: (MediaQuery.of(context).size.width * 0.25),
+                    //   backgroundColor: Colors.white,
+                    //   child: CircleAvatar(
+                    //     radius: (MediaQuery.of(context).size.width * 0.25),
+                    //     backgroundImage: NetworkImage(
+                    //       'INSERT_URL_HERE',
+                    //     ),
+                    //     backgroundColor: Colors.green,
+                    //     child: Padding(
+                    //       padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
+                    //       child: Align(
+                    //         alignment: Alignment.bottomRight,
+                    //         child: Icon(
+                    //           Icons.verified_rounded,
+                    //           color: Colors.blue,
+                    //           size: MediaQuery.of(context).size.width * 0.25,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    SizedBox(
+                      width: (MediaQuery.of(context).size.width * 0.17),
+                      height: (MediaQuery.of(context).size.width * 0.17),
+                      child: FittedBox(
+                        child: FloatingActionButton(
+                          heroTag: "userIconBtn",
+                          backgroundColor: Color.fromARGB(255, 100, 100, 100),
+                          onPressed: (() => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const UserInfosPage()),
+                              )),
+                          child: Icon(
+                            Icons.person,
+                            size: (MediaQuery.of(context).size.width * 0.1),
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        TextButton(
+                          onPressed: (() => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const UserInfosPage()),
+                              )),
+                          child: Text(
+                            userName,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          userEmail,
+                          style: const TextStyle(fontSize: 12),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+                    // Icon(
+                    //   Icons.arrow_right,
+                    //   color: const Color.fromARGB(255, 136, 136, 136),
+                    //   // size: 46.0,
+                    //   size: MediaQuery.of(context).size.width * 0.12,
+                    //   semanticLabel: 'User Icon',
+                    // ),
+                    IconButton(
+                      onPressed: (() => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const UserInfosPage()),
+                          )),
+                      icon: Icon(
+                        Icons.arrow_right,
+                        color: const Color.fromARGB(255, 136, 136, 136),
+                        // size: 46.0,
+                        size: MediaQuery.of(context).size.width * 0.12,
+                        semanticLabel: 'User Icon',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                // padding: const EdgeInsets.all(0),
+                padding: const EdgeInsets.only(top: 8, left: 10, right: 10),
+                child: Column(
+                  children: [
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Paramètres du compte",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    UserAccountList(
+                      title: "Informations personnelles",
+                      onTap: (() => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const UserInfosPage()),
+                          )),
+                      config: 'bottom',
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                // padding: const EdgeInsets.all(0),
+                padding: const EdgeInsets.only(top: 8, left: 10, right: 10),
+                child: Column(
+                  children: [
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Commandes",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    UserAccountList(
+                      title: "Historique des commandes",
+                      onTap: (() => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HistoriquePage()),
+                          )),
+                      config: 'in',
+                    ),
+                    UserAccountList(
+                      title: "Informations de paiement",
+                      onTap: (() => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const InfoPaiementPage()),
+                          )),
+                      config: 'bottom',
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              TextButton(
+                onPressed: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text("Logout"),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => {
+                          Navigator.pop(context, 'Cancel'),
+                        },
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () => {logout()},
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                ),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.redAccent),
+                  textStyle: MaterialStateProperty.all<TextStyle>(
+                    const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.all(10),
+                  ),
+                ),
+                child: const Text(
+                  "Logout",
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
