@@ -2,7 +2,7 @@ from fastapi import UploadFile
 from sqlalchemy.orm import Session
 from models.article_model import Article as ArticleModel
 from schemas.article_schema import Article as ArticleSchema
-from core.images import upload_file
+from core.images import upload_file, create_code
 from uuid import UUID
 
 def get_article(db: Session, article_id: UUID):
@@ -29,6 +29,7 @@ async def create_article(db: Session, article: ArticleSchema, file: UploadFile):
     db.add(db_article)
     db.commit()
     db.refresh(db_article)
+    create_code(db_article.id)
     return db_article
 
 def update_article(db: Session, article: ArticleSchema):
