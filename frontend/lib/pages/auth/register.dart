@@ -35,8 +35,8 @@ class _RegisterState extends State<Register> {
     showDatePicker(
             context: context,
             initialDate: DateTime.now(),
-            firstDate: DateTime(2022),
-            lastDate: DateTime(2025))
+            firstDate: DateTime(1950),
+            lastDate: DateTime.now())
         .then((pickedDate) {
       if (pickedDate == null) {
         return;
@@ -313,6 +313,7 @@ class _RegisterState extends State<Register> {
             SizedBox(
               width: 300,
               child: TextField(
+                obscureText: true,
                 obscuringCharacter: "*",
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(

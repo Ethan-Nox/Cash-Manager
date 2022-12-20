@@ -15,21 +15,23 @@ class MyNavBar extends StatelessWidget {
     Color secondaryFade = const Color(0x66b737cc);
     return (ConvexAppBar(
       backgroundColor: const Color(0xFFFFFFFF),
-      initialActiveIndex: 2,
+      initialActiveIndex: 1,
       items: [
         TabItem(
-            icon: Container(
-              transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-              child: const Icon(Icons.electrical_services,
-                  size: 25, color: Color(0x667c2bfb)),
+          icon: Container(
+            transform: Matrix4.translationValues(0.0, -10.0, 0.0),
+            child: const Icon(Icons.search,
+                size: 25, color: Color(0x667c2bfb)),
+          ),
+          activeIcon: Container(
+            transform: Matrix4.translationValues(0.0, -10.0, 0.0),
+            child: const Icon(
+              Icons.search,
+              size: 25,
+              color: Color(0xFF7c2bfb),
             ),
-            activeIcon: Container(
-                transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-                child: const Icon(
-                  Icons.electrical_services,
-                  size: 25,
-                  color: Color(0xFF7c2bfb),
-                ))),
+          ),
+        ),
 
         TabItem(
           icon: Container(
