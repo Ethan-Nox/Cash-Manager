@@ -39,7 +39,11 @@ dependencies:
   shared_preferences: ^2.0.15
   flutter_dotenv: ^5.0.2
   provider: ^6.0.4
+  searchfield: ^0.7.2
   convex_bottom_bar: ^3.1.0
+  flutter_filter_dialog: ^1.0.4
+  flutter_barcode_scanner: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:
