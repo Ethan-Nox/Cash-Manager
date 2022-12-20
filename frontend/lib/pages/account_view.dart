@@ -262,9 +262,9 @@ class _AccountViewState extends State<AccountView> {
                       fontSize: 16,
                     ),
                   ),
-                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    const EdgeInsets.all(10),
-                  ),
+                  // padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                  //   const EdgeInsets.all(10),
+                  // ),
                 ),
                 // child: const Text(
                 //   "Logout",
@@ -273,7 +273,7 @@ class _AccountViewState extends State<AccountView> {
                 child: Icon(
                   Icons.logout,
                   color: Colors.white,
-                  size: MediaQuery.of(context).size.width * 0.05,
+                  // size: MediaQuery.of(context).size.width * 0.05,
                 ),
               )
             ],

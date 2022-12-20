@@ -20,7 +20,7 @@ class MyNavBar extends StatelessWidget {
         TabItem(
           icon: Container(
             transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-            child: const Icon(Icons.electrical_services,
+            child: const Icon(Icons.search,
                 size: 25, color: Color(0x667c2bfb)),
           ),
           activeIcon: Container(
