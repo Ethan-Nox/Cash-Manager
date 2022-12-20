@@ -328,8 +328,8 @@ class _RegisterState extends State<Register> {
               width: 300,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: const Color.fromARGB(255, 203, 33, 209),
-                  onPrimary: Colors.white,
+                  backgroundColor: const Color.fromARGB(255, 203, 33, 209),
+                  foregroundColor: Colors.white,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
