@@ -31,3 +31,4 @@ sqladmin
 
 #images
 pillow
+python-barcode
