@@ -55,8 +55,20 @@ class _AccountViewState extends State<AccountView> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(0),
+              ElevatedButton(
+                // padding: const EdgeInsets.all(0),
+                style: ElevatedButton.styleFrom(
+                    // primary: Colors.transparent,
+                    elevation: 0,
+                    padding: const EdgeInsets.all(0),
+                    backgroundColor: Colors.transparent),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UserInfosPage()),
+                  );
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,12 +97,12 @@ class _AccountViewState extends State<AccountView> {
                     //   ),
                     // ),
                     SizedBox(
-                      width: (MediaQuery.of(context).size.width * 0.17),
-                      height: (MediaQuery.of(context).size.width * 0.17),
+                      width: (70),
+                      height: (70),
                       child: FittedBox(
                         child: FloatingActionButton(
                           heroTag: "userIconBtn",
-                          backgroundColor: Color.fromARGB(255, 100, 100, 100),
+                          backgroundColor: const Color.fromARGB(255, 100, 100, 100),
                           onPressed: (() => Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -99,7 +111,7 @@ class _AccountViewState extends State<AccountView> {
                               )),
                           child: Icon(
                             Icons.person,
-                            size: (MediaQuery.of(context).size.width * 0.1),
+                            size: (40),
                             color: Colors.white,
                           ),
                         ),
@@ -123,12 +135,14 @@ class _AccountViewState extends State<AccountView> {
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 88, 88, 88),
                             ),
                           ),
                         ),
                         Text(
                           userEmail,
-                          style: const TextStyle(fontSize: 12),
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.grey),
                           textAlign: TextAlign.left,
                         ),
                       ],
