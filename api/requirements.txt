@@ -28,3 +28,7 @@ pytest
 
 #admin
 sqladmin
+
+#images
+pillow
+python-barcode

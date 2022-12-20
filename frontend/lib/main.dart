@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frontend/app.dart';
 import 'package:frontend/pages/auth/login.dart';
+import 'package:frontend/pages/home_view.dart';
+import 'package:frontend/providers/navbar_provider.dart';
+import 'package:frontend/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -10,15 +15,20 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home:  Login(),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => NavBarProvider()),
+          ChangeNotifierProvider(create: (context) => UserProvider()),
+        ],
+        child: MaterialApp(
+          title: 'Cash Manager',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const App(),
+          debugShowCheckedModeBanner: false,
+        ));
   }
 }

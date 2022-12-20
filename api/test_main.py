@@ -16,11 +16,11 @@ class TestAuth:
 
     def test_register_unauthorize(self):
         response = client.post("/register", json={
-            "first_name": "Lucas",
-            "last_name": "Ogrodnik",
+            "firstname": "Lucas",
+            "lastname": "Ogrodnik",
             "email": "ogrodnik.lucas@gmail.com",
             "password": "oui",
-            "birth_date": "1999-01-01",
+            "birthdate": "1999-01-01",
             "genre": 0,
             "role": 0
         })
