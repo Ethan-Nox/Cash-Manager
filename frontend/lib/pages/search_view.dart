@@ -136,8 +136,11 @@ class _SearchState extends State<SearchView> {
 
               article?.then((value) => print(value));
 
-              print(snapshot.hasData);
+              print("has data---------------------------");
+            
+
               if (snapshot.connectionState == ConnectionState.done) {
+                print(snapshot);
                 if (snapshot.data == null) {
                   return const Text("No data");
                 } else {

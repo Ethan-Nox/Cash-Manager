@@ -1,6 +1,8 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/providers/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 
    class List_Panier extends StatefulWidget {
@@ -53,7 +55,7 @@ class _List_PanierState extends State<List_Panier> {
                 margin: const EdgeInsets.only(right: 10),
                 width: MediaQuery.of(context).size.width * 0.2,
                 height: MediaQuery.of(context).size.height * 0.1,
-                color: Color.fromARGB(255, 109, 87, 87),
+                  child: Image.network("http://10.68.254.111:8080/images/${widget.image}"),
                 
               ),
               SizedBox(
@@ -90,7 +92,9 @@ class _List_PanierState extends State<List_Panier> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<CartProvider>().deleteArticle(widget.id);
+                    },
                     icon: const Icon(
                       Icons.delete,
                       color: Color.fromARGB(255, 31, 30, 30),
@@ -112,7 +116,7 @@ class _List_PanierState extends State<List_Panier> {
                       children: [
                         IconButton(
                           onPressed: () {
-                          
+                            context.read<CartProvider>().removeQuantity();
                           },
                           icon: const Icon(
                             Icons.remove,
@@ -120,7 +124,7 @@ class _List_PanierState extends State<List_Panier> {
                           ),
                         ),
                         Text(
-                          quantity.toString(),
+                          context.read<CartProvider>().quantity.toString(),
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -128,7 +132,7 @@ class _List_PanierState extends State<List_Panier> {
                         ),
                         IconButton(
                           onPressed: () {
-                           
+                           context.read<CartProvider>().addQuantity(widget.id);
                           },
                           icon: const Icon(
                             Icons.add,

@@ -53,6 +53,7 @@ class _List_ArticleState extends State<List_Article> {
                 height: 100,
                 color: Colors.white,
                 child: Image.network("http://10.68.254.111:8080/images/${widget.image}"),
+                
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -93,6 +94,9 @@ class _List_ArticleState extends State<List_Article> {
                   context
                       .read<CartProvider>()
                       .addArticle( widget.id,widget.description,widget.name, widget.price, widget.image, widget.category,  widget.stock);
+                    print("add article");  
+                      print(context.read<CartProvider>().getItems());
+
                   if (widget.stock > 0) {
                     widget.stock--;
                   } else {

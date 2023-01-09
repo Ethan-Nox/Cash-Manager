@@ -14,7 +14,7 @@ class CartView extends StatefulWidget {
 
 class _CartViewState extends State<CartView> {
 
-  late  List item = Provider.of<CartProvider>(context, listen: false ).getItems();
+  late  List item = Provider.of<CartProvider>(context, listen: true ).getItems();
 
 
   final List items = [
