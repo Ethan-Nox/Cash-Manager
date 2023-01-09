@@ -25,10 +25,10 @@ class _AccountViewState extends State<AccountView> {
   late String userEmail =
       Provider.of<UserProvider>(context, listen: false).currentUser!.email;
 
-  var panier = [
-    {"idArticle", "quantityArticle"},
-    {"idArticle", "quantityArticle"}
-  ];
+  // var panier = [
+  //   {"idArticle", "quantityArticle"},
+  //   {"idArticle", "quantityArticle"}
+  // ];
 
   logout() {
     Navigator.pop(context, 'Cancel');

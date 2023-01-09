@@ -61,14 +61,14 @@ class HistoriqueWidget extends StatelessWidget {
               SizedBox(
                 width: 5,
               ),
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                  "${url}clock-removebg-preview.png",
-                  headers: {
-                    "accept": "application/json",
-                  },
-                ),
-              ),
+              // CircleAvatar(
+              //   backgroundImage: NetworkImage(
+              //     "${url}clock-removebg-preview.png",
+              //     headers: {
+              //       "accept": "application/json",
+              //     },
+              //   ),
+              // ),
               Text(price + " €"),
 
               IconButton(
