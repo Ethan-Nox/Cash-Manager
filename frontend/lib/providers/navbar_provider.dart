@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class NavBarProvider extends ChangeNotifier {
   late int _currentPageIndex = 1;
   int get currentPageIndex => _currentPageIndex;
