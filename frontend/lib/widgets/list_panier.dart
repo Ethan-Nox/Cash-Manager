@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
@@ -54,7 +53,7 @@ class _List_PanierState extends State<List_Panier> {
                 width: MediaQuery.of(context).size.width * 0.2,
                 height: MediaQuery.of(context).size.height * 0.1,
                 color: Color.fromARGB(255, 109, 87, 87),
-                
+
               ),
               SizedBox(
                 child: Column(
@@ -112,7 +111,7 @@ class _List_PanierState extends State<List_Panier> {
                       children: [
                         IconButton(
                           onPressed: () {
-                          
+
                           },
                           icon: const Icon(
                             Icons.remove,
@@ -128,7 +127,7 @@ class _List_PanierState extends State<List_Panier> {
                         ),
                         IconButton(
                           onPressed: () {
-                           
+
                           },
                           icon: const Icon(
                             Icons.add,
@@ -148,4 +147,3 @@ class _List_PanierState extends State<List_Panier> {
 }
 
 
-  

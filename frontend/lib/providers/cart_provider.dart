@@ -11,7 +11,7 @@ class CartProvider extends ChangeNotifier {
   late int _stock;
   late int _total;
 
-  List<Article_Model> items = [];
+  late List<Article_Model> items = [];
 
   int get quantity => _quantity;
 
