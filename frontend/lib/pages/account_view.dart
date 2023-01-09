@@ -25,6 +25,11 @@ class _AccountViewState extends State<AccountView> {
   late String userEmail =
       Provider.of<UserProvider>(context, listen: false).currentUser!.email;
 
+  var panier = [
+    {"idArticle", "quantityArticle"},
+    {"idArticle", "quantityArticle"}
+  ];
+
   logout() {
     Navigator.pop(context, 'Cancel');
     Provider.of<NavBarProvider>(context, listen: false).changePage(1);
@@ -102,7 +107,8 @@ class _AccountViewState extends State<AccountView> {
                       child: FittedBox(
                         child: FloatingActionButton(
                           heroTag: "userIconBtn",
-                          backgroundColor: const Color.fromARGB(255, 100, 100, 100),
+                          backgroundColor:
+                              const Color.fromARGB(255, 100, 100, 100),
                           onPressed: (() => Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -164,7 +170,7 @@ class _AccountViewState extends State<AccountView> {
                         Icons.arrow_right,
                         color: const Color.fromARGB(255, 136, 136, 136),
                         // size: 46.0,
-                        size: MediaQuery.of(context).size.width * 0.12,
+                        size: 50,
                         semanticLabel: 'User Icon',
                       ),
                     ),
@@ -231,6 +237,9 @@ class _AccountViewState extends State<AccountView> {
                                 builder: (context) => const HistoriquePage()),
                           )),
                       config: 'in',
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     UserAccountList(
                       title: "Informations de paiement",

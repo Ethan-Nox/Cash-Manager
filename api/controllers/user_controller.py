@@ -1,11 +1,15 @@
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
+from schemas.user_schema import User
 from models.user_model import User as UserModel
 from models.article_model import Article as ArticleModel
+from models.bill_model import Bill as BillModel
+from models.product_model import Product as ProductModel
 from schemas.user_schema import User as UserSchema
 from controllers.article_controller import get_article
 from core.hashing import Hasher
 from uuid import UUID
-import copy
+from datetime import date
 
 def get_user(db: Session, user_id: UUID):
     return db.query(UserModel).filter(UserModel.id == user_id).first()
@@ -31,7 +35,8 @@ def create_user(db: Session, user: UserSchema):
         birthdate=user.birthdate,
         genre=user.genre,
         role=1,
-        articles=[]
+        products=[],
+        bills=[]
     )
     db.add(db_user)
     db.commit()
@@ -57,10 +62,45 @@ def login(db: Session, email: str, password: str):
         return False
     return user
 
-def add_article_to_user(db: Session, article_id: UUID, user_id: UUID):
+def add_article_to_user(db: Session, article_id: UUID, user_id: UUID, quantity: int):
     db_user: UserModel = get_user(db, user_id)
     db_article: ArticleModel = get_article(db, article_id)
-    db_user.articles.append(db_article)
+    db_product = ProductModel(
+        article=db_article,
+        quantity=quantity
+    )
+    db.add(db_product)
+    db.commit()
+    db.refresh(db_product)
+    db_user.products.append(db_product)
     db.commit()
     db.refresh(db_user)
     return True
+
+class BillResponse(BaseModel):
+    status: bool
+    id: int
+
+def new_bill(db: Session, user_id: UUID):
+    db_user: User = get_user(db, user_id)
+    if (len(db_user.products) < 1):
+        return BillResponse(status=False, id=0)
+    total_price = 0
+    for product in db_user.products:
+        total_price += product.quantity * product.article.price
+        if (product.quantity > product.article.stock):
+            return BillResponse(status=False, id=product.article.id)
+    db_bill = BillModel(
+        total_price = total_price,
+        products = db_user.products,
+        user = db_user,
+        date = date.today()
+    )
+    db.add(db_bill)
+    db.commit()
+    db.refresh(db_bill)
+    db_user.bills.append(db_bill)
+    db_user.products = []
+    db.commit()
+    db.refresh(db_user)
+    return BillResponse(status=True, id=0)

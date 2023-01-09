@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/providers/cart_provider.dart';
@@ -116,7 +115,9 @@ class _List_PanierState extends State<List_Panier> {
                       children: [
                         IconButton(
                           onPressed: () {
+
                             context.read<CartProvider>().removeQuantity();
+
                           },
                           icon: const Icon(
                             Icons.remove,
@@ -132,7 +133,10 @@ class _List_PanierState extends State<List_Panier> {
                         ),
                         IconButton(
                           onPressed: () {
+
                            context.read<CartProvider>().addQuantity(widget.id);
+
+
                           },
                           icon: const Icon(
                             Icons.add,
@@ -152,4 +156,3 @@ class _List_PanierState extends State<List_Panier> {
 }
 
 
-  
