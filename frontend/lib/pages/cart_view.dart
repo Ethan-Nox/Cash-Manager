@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:frontend/widgets/scan/scan.dart';
 
 class CartView extends StatefulWidget {
   const CartView({Key? key}) : super(key: key);
@@ -11,11 +12,10 @@ class _CartViewState extends State<CartView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Text('CartView'),
-          ],
+      child: Scaffold(
+        floatingActionButton: scan(),
+        body: Center(
+          child: Text("Cart"),
         ),
       ),
     );
