@@ -25,7 +25,7 @@ def update_article(article: article_schema.Article, db: Session = Depends(get_db
 # Delete an article
 @router.delete("/articles/", response_model=article_schema.Article, tags=["articles"])
 def delete_article(article_id: str, db: Session = Depends(get_db)):
-    db_article = article_controller.get_article(db, id=article_id)
+    db_article = article_controller.get_article(db, article_id=article_id)
     if db_article is None:
         raise HTTPException(status_code=404, detail="Article not found")
     return article_controller.delete_article(db, id=article_id)
