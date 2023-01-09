@@ -5,7 +5,7 @@ import 'package:frontend/providers/cart_provider.dart';
 import 'package:frontend/service/cartService.dart';
 import 'package:provider/provider.dart';
 
- class List_Article extends StatefulWidget {
+class List_Article extends StatefulWidget {
   final String name;
   final double price;
   final String image;
@@ -15,8 +15,7 @@ import 'package:provider/provider.dart';
   final String description;
 
   List_Article(
-      {
-      required this.id,
+      {required this.id,
       required this.name,
       required this.price,
       required this.description,
@@ -50,7 +49,8 @@ class _List_ArticleState extends State<List_Article> {
                 width: 100,
                 height: 100,
                 color: Colors.white,
-                child: Image.network("http://10.68.254.111:8080/images/${widget.image}"),
+                child: Image.network(
+                    "http://20.111.52.214:8080/images/${widget.image}"),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -88,9 +88,14 @@ class _List_ArticleState extends State<List_Article> {
                   color: Color.fromARGB(255, 165, 53, 122),
                 ),
                 onPressed: () {
-                  context
-                      .read<CartProvider>()
-                      .addArticle( widget.id,widget.description,widget.name, widget.price, widget.image, widget.category,  widget.stock);
+                  context.read<CartProvider>().addArticle(
+                      widget.id,
+                      widget.description,
+                      widget.name,
+                      widget.price,
+                      widget.image,
+                      widget.category,
+                      widget.stock);
                   if (widget.stock > 0) {
                     widget.stock--;
                   } else {
