@@ -72,6 +72,9 @@ def add_article_to_user(db: Session, article_id: UUID, user_id: UUID, quantity: 
     db.add(db_product)
     db.commit()
     db.refresh(db_product)
+    for product in db_user.products:
+        if product.article.id == db_product.article.id:
+            db_user.products.remove(product)
     db_user.products.append(db_product)
     db.commit()
     db.refresh(db_user)
@@ -100,6 +103,9 @@ def new_bill(db: Session, user_id: UUID):
     db.commit()
     db.refresh(db_bill)
     db_user.bills.append(db_bill)
+    for product in db_user.products:
+        product.article.stock -= product.quantity
+        db.refresh(product)
     db_user.products = []
     db.commit()
     db.refresh(db_user)
