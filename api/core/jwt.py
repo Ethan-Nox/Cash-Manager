@@ -2,7 +2,6 @@ from fastapi import Depends, HTTPException, status, Header
 from fastapi.security import OAuth2PasswordBearer
 
 from jose import JWTError, jwt
-import json
 from pydantic import BaseModel
 from uuid import UUID
 from datetime import datetime, timedelta

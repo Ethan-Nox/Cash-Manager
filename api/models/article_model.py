@@ -1,6 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Float
-from sqlalchemy.dialects.postgresql import UUID
-from uuid import uuid4
+from sqlalchemy import Column, Integer, String, Float
 from core.database import Base
 
 class Article(Base):
