@@ -58,17 +58,17 @@ class HistoriqueWidget extends StatelessWidget {
                 formattedDate,
                 style: const TextStyle(color: Colors.black),
               ), // <-- Text
-              // SizedBox(
-              //   width: 5,
-              // ),
-              // CircleAvatar(
-              //   backgroundImage: NetworkImage(
-              //     "${url}clock-removebg-preview.png",
-              //     headers: {
-              //       "accept": "application/json",
-              //     },
-              //   ),
-              // ),
+              SizedBox(
+                width: 5,
+              ),
+              CircleAvatar(
+                backgroundImage: NetworkImage(
+                  "${url}clock-removebg-preview.png",
+                  headers: {
+                    "accept": "application/json",
+                  },
+                ),
+              ),
               Text(price + " €"),
 
               IconButton(

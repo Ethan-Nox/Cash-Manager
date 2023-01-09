@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_const
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:frontend/providers/cart_provider.dart';
 import 'package:frontend/service/cartService.dart';

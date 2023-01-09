@@ -11,8 +11,9 @@ class MyNavBar extends StatelessWidget {
     Color primary = const Color(0xFF7c2bfb);
     Color primaryFade = const Color(0x667c2bfb);
 
-    Color secondary = const Color(0xFFb737cc);
-    Color secondaryFade = const Color(0x66b737cc);
+    Color secondary = const Color.fromRGBO(41, 125, 244, 1);
+    // Color secondaryFade = const Color.fromARGB(255, 141, 188, 255);
+    Color secondaryFade = Color.fromARGB(255, 202, 202, 202);
     return (ConvexAppBar(
       backgroundColor: const Color(0xFFFFFFFF),
       initialActiveIndex: 1,
@@ -20,15 +21,14 @@ class MyNavBar extends StatelessWidget {
         TabItem(
           icon: Container(
             transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-            child: const Icon(Icons.search,
-                size: 25, color: Color(0x667c2bfb)),
+            child: Icon(Icons.search, size: 25, color: secondaryFade),
           ),
           activeIcon: Container(
             transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-            child: const Icon(
+            child: Icon(
               Icons.search,
               size: 25,
-              color: Color(0xFF7c2bfb),
+              color: secondary,
             ),
           ),
         ),
@@ -42,8 +42,7 @@ class MyNavBar extends StatelessWidget {
               //   'assets/images/logo-charge.png',
               //   color: Colors.white.withOpacity(0.5),
               //   colorBlendMode: BlendMode.modulate,
-              child: const Icon(Icons.shopping_cart,
-                  size: 25, color: Color(0x667c2bfb)),
+              child: Icon(Icons.shopping_cart, size: 25, color: secondaryFade),
             ),
           ),
           // activeIcon: Container(
@@ -51,17 +50,17 @@ class MyNavBar extends StatelessWidget {
           //   child: Transform.scale(
           //     scale: 1.5,
           //     child: const Icon(Icons.calendar_month_outlined,
-          //         size: 25, color: Color(0x667c2bfb)),
+          //         size: 25, color: secondaryFade),
           //   ),
           // ),
           activeIcon: Container(
             transform: Matrix4.translationValues(0.0, -5.0, 0.0),
             child: Transform.scale(
               scale: 1.5,
-              child: const Icon(
+              child: Icon(
                 Icons.shopping_cart,
                 size: 25,
-                color: Color(0xFF7c2bfb),
+                color: secondary,
               ),
             ),
           ),
@@ -70,27 +69,26 @@ class MyNavBar extends StatelessWidget {
         //     icon: Container(
         //       transform: Matrix4.translationValues(0.0, -10.0, 0.0),
         //       child: const Icon(Icons.message_outlined,
-        //           size: 25, color: Color(0x667c2bfb)),
+        //           size: 25, color: secondaryFade),
         //     ),
         //     activeIcon: Container(
         //         transform: Matrix4.translationValues(0.0, -10.0, 0.0),
         //         child: const Icon(
         //           Icons.message,
         //           size: 25,
-        //           color: Color(0xFF7c2bfb),
+        //           color: secondary,
         //         ))),
         TabItem(
           icon: Container(
             transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-            child: const Icon(Icons.person_outline,
-                size: 25, color: Color(0x667c2bfb)),
+            child: Icon(Icons.person_outline, size: 25, color: secondaryFade),
           ),
           activeIcon: Container(
             transform: Matrix4.translationValues(0.0, -10.0, 0.0),
-            child: const Icon(
+            child: Icon(
               Icons.person,
               size: 25,
-              color: Color(0xFF7c2bfb),
+              color: secondary,
             ),
           ),
         ),
