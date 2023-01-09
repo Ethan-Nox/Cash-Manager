@@ -29,7 +29,9 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Login'),
         backgroundColor: const Color.fromARGB(255, 203, 33, 209),
@@ -206,6 +208,7 @@ class _LoginState extends State<Login> {
   }
 
   loginUser() async {
+    print("Login User");
     var https = dotenv.env['HTTPS'];
     String url = "$https/login";
     var msg = jsonEncode({

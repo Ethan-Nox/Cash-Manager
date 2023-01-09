@@ -42,6 +42,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
 
   bool asChanged = false;
   bool pswdChanged = false;
+  bool passwordChanged = false;
 
   void _selDatePicked() {
     asChanged = true;
@@ -135,7 +136,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
                   ),
                   controller: firstNameController,
                   onChanged: (value) {
-                    print("HAS CHANGED");
+                    // print("HAS CHANGED");
                     setState(() {
                       asChanged = true;
                     });
@@ -165,7 +166,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
                   ),
                   controller: lastNameController,
                   onChanged: (value) {
-                    print("HAS CHANGED");
+                    // print("HAS CHANGED");
                     setState(() {
                       asChanged = true;
                     });
@@ -273,17 +274,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
               //       ),
               //     ])),
               const SizedBox(height: 20),
-              // const SizedBox(
-              //   width: 300,
-              //   height: 20,
-              //   child: Text(
-              //     'Birthday',
-              //     style: TextStyle(
-              //       fontSize: 15,
-              //       fontWeight: FontWeight.bold,
-              //     ),
-              //   ),
-              // ),
+
               SizedBox(
                 width: 300,
                 child: TextField(
@@ -339,6 +330,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
                       setState(() {
                         asChanged = true;
                         equalPasswords = true;
+                        passwordChanged = true;
                       });
                     }
                   },
@@ -347,17 +339,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
               const SizedBox(
                 height: 10,
               ),
-              // const SizedBox(
-              //   width: 300,
-              //   height: 20,
-              //   child: Text(
-              //     'Confirm Password',
-              //     style: TextStyle(
-              //       fontSize: 15,
-              //       fontWeight: FontWeight.bold,
-              //     ),
-              //   ),
-              // ),
+
               SizedBox(
                 width: 300,
                 child: TextField(
@@ -395,7 +377,12 @@ class _UserInfosPageState extends State<UserInfosPage> {
               const SizedBox(
                 height: 10,
               ),
-              asChanged == true
+              (asChanged == true && passwordChanged == false)
+                  ? saveInfos()
+                  : const SizedBox(
+                      height: 5,
+                    ),
+              (asChanged == true && passwordChanged == true)
                   ? saveInfos()
                   : const SizedBox(
                       height: 5,
@@ -428,18 +415,30 @@ class _UserInfosPageState extends State<UserInfosPage> {
       msg = jsonEncode({
         "firstname": firstNameController.text,
         "lastname": lastNameController.text,
-        // "email": emailController.text,
+        "email": Provider.of<UserProvider>(context, listen: false)
+            .currentUser!
+            .email,
         "birthdate": birthdateController.text,
-        // "genre": 0,
-        // "role": "0",
+        "genre": Provider.of<UserProvider>(context, listen: false)
+            .currentUser!
+            .genre,
+        "role":
+            Provider.of<UserProvider>(context, listen: false).currentUser!.role,
         "password": passwordController.text
       });
     } else {
       msg = jsonEncode({
         "firstname": firstNameController.text,
         "lastname": lastNameController.text,
-        // "email": emailController.text,
+        "email": Provider.of<UserProvider>(context, listen: false)
+            .currentUser!
+            .email,
         "birthdate": birthdateController.text,
+        "genre": Provider.of<UserProvider>(context, listen: false)
+            .currentUser!
+            .genre,
+        "role":
+            Provider.of<UserProvider>(context, listen: false).currentUser!.role,
       });
     }
 
@@ -470,10 +469,12 @@ class _UserInfosPageState extends State<UserInfosPage> {
             content: Text(response.body),
           ),
         );
+        Navigator.pop(context, 'Cancel');
       }
     } catch (e) {
       // ignore: avoid_print
       print(e);
+
     }
   }
 }
