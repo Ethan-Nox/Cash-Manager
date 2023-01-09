@@ -7,7 +7,7 @@ from models.bill_model import Bill
 
 product_user_association = Table('product_user_association', Base.metadata,
     Column('products_id', Integer, ForeignKey('products.id')),
-    Column('users_id', String, ForeignKey('users.id'))
+    Column('users_id', UUID(as_uuid=True), ForeignKey('users.id'))
 )
 
 class User(Base):
