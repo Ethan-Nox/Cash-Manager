@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/models/articleModel.dart';
 import 'package:frontend/models/cart.dart';
+import 'package:http/http.dart' as http;
 
 class CartProvider extends ChangeNotifier {
+
+
+
+
+
   late int _quantity = 0;
   late int id;
   late String _name;
