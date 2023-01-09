@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
+from schemas.product_schema import Product
+from schemas.user_schema import User
 from core.database import get_db
 from schemas import article_schema
 from controllers import article_controller, user_controller
@@ -21,9 +23,13 @@ def read_article(article_id: str, db: Session = Depends(get_db)):
     return db_article
 
 # ADD ARTICLE TO USER
-@router.patch("/add_article", response_model=bool, tags=["users"])
+@router.patch("/add_article", response_model=list[Product], tags=["users"])
 def add_article_to_user(article_id: str, quantity: int,db: Session = Depends(get_db), uuid: str = Depends(jwt.get_current_user_id)):
     db_article = article_controller.get_article(db, article_id=article_id)
     if db_article is None:
         raise HTTPException(status_code=404, detail="Article not found")
-    return user_controller.add_article_to_user(db, article_id=article_id, user_id=uuid, quantity=quantity)
+    if user_controller.add_article_to_user(db, article_id=article_id, user_id=uuid, quantity=quantity) == True:
+        db_user: User = user_controller.get_user(db=db, user_id=uuid)
+        return db_user.products
+    else:
+        raise HTTPException(status_code=404, detail="Can't add article")
