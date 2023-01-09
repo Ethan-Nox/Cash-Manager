@@ -3,10 +3,11 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 from uuid import uuid4
 from core.database import Base
+from models.bill_model import Bill
 
-article_user_association = Table('article_user_association', Base.metadata,
-    Column('articles_id', Integer, ForeignKey('articles.id')),
-    Column('users_id', UUID, ForeignKey('users.id'))
+product_user_association = Table('product_user_association', Base.metadata,
+    Column('products_id', Integer, ForeignKey('products.id')),
+    Column('users_id', String, ForeignKey('users.id'))
 )
 
 class User(Base):
@@ -19,6 +20,8 @@ class User(Base):
     birthdate = Column(DateTime(timezone=True))
     genre = Column(Integer, nullable=False, default=0)
     hashed_password = Column(String)
-    articles_id = Column(ARRAY(Integer, ForeignKey('articles.id')))
-    articles = relationship("Article", secondary="article_user_association")
     role = Column(Integer, nullable=False, default=0)
+
+    products_id = Column(ARRAY(Integer, ForeignKey('products.id')))
+    products = relationship("Product", secondary="product_user_association")
+    bills = relationship("Bill", back_populates="user")

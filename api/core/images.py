@@ -58,4 +58,4 @@ def create_code(id: int):
 
 @router.get("/codes/{article_id}", tags=["images"])
 async def get_code(id: int):
-    return FileResponse(PATH_CODES + "code_" + str(id))
+    return FileResponse(PATH_CODES + "code_" + str(id) + ".jpeg")
