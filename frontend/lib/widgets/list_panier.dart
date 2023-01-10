@@ -1,16 +1,19 @@
 
 import 'package:flutter/material.dart';
+import 'package:frontend/providers/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 
    class List_Panier extends StatefulWidget {
 
   final int id;
   final String name;
-  final double price;
+  final num price;
   final String image;
   final String category;
   final int stock;
   final String description;
+  final int quantity;
 
    List_Panier({
     required this.id,
@@ -20,6 +23,7 @@ import 'package:flutter/material.dart';
     required this.category,
     required this.stock,
     required this.description,
+    required this.quantity,
   });
 
   @override
@@ -27,7 +31,7 @@ import 'package:flutter/material.dart';
 }
 
 class _List_PanierState extends State<List_Panier> {
-  int quantity = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +56,7 @@ class _List_PanierState extends State<List_Panier> {
                 margin: const EdgeInsets.only(right: 10),
                 width: MediaQuery.of(context).size.width * 0.2,
                 height: MediaQuery.of(context).size.height * 0.1,
-                color: Color.fromARGB(255, 109, 87, 87),
-
+                  child: Image.network("http://10.68.254.111:8080/images/${widget.image}"),
               ),
               SizedBox(
                 child: Column(
@@ -89,7 +92,9 @@ class _List_PanierState extends State<List_Panier> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                
+                    },
                     icon: const Icon(
                       Icons.delete,
                       color: Color.fromARGB(255, 31, 30, 30),
@@ -112,6 +117,8 @@ class _List_PanierState extends State<List_Panier> {
                         IconButton(
                           onPressed: () {
 
+                            
+
                           },
                           icon: const Icon(
                             Icons.remove,
@@ -119,7 +126,7 @@ class _List_PanierState extends State<List_Panier> {
                           ),
                         ),
                         Text(
-                          quantity.toString(),
+                          widget.quantity.toString(),
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
