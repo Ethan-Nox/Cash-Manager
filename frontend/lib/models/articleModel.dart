@@ -1,7 +1,7 @@
 class Article_Model {
 
   String name;
-  double price;
+  num price;
   String category;
   String description;
   String image;
