@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:frontend/widgets/scan/scan.dart';
 import 'package:frontend/providers/cart_provider.dart';
 import 'package:frontend/widgets/list_panier.dart';
 import 'package:provider/provider.dart';
@@ -52,6 +52,7 @@ class _CartViewState extends State<CartView> {
 
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: scan(),
         resizeToAvoidBottomInset: false,
         body: Center(
             child: ListView(   

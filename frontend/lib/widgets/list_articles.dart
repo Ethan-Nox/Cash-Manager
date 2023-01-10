@@ -53,7 +53,7 @@ class _List_ArticleState extends State<List_Article> {
                 height: 100,
                 color: Colors.white,
                 child: Image.network(
-                    "http://10.68.254.111:8080/images/${widget.image}"),
+                    "http://20.111.52.214:8080/images/${widget.image}"),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,

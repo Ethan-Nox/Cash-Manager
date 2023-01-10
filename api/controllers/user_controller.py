@@ -6,7 +6,7 @@ from models.article_model import Article as ArticleModel
 from models.bill_model import Bill as BillModel
 from models.product_model import Product as ProductModel
 from schemas.user_schema import User as UserSchema
-from controllers.article_controller import get_article
+from controllers.article_controller import get_article, get_article_by_code
 from core.hashing import Hasher
 from uuid import UUID
 from datetime import date
@@ -72,7 +72,34 @@ def add_article_to_user(db: Session, article_id: UUID, user_id: UUID, quantity: 
     db.add(db_product)
     db.commit()
     db.refresh(db_product)
+    for product in db_user.products:
+        if product.article.id == db_product.article.id:
+            db_user.products.remove(product)
     db_user.products.append(db_product)
+    db.commit()
+    db.refresh(db_user)
+    return True
+
+def add_article_to_user_with_scan(db: Session, code: str, user_id: UUID):
+    db_user: UserModel = get_user(db, user_id)
+    db_article: ArticleModel = get_article_by_code(db, code)
+    my_bool = False
+
+    for product in db_user.products:
+        if product.article.id == db_article.id:
+            product.quantity += 1
+            my_bool = True
+            db.commit()
+            db.refresh(product)
+    if (my_bool == False):
+        db_product = ProductModel(
+            article=db_article,
+            quantity=1
+        )
+        db.add(db_product)
+        db.commit()
+        db.refresh(db_product)
+        db_user.products.append(db_product)
     db.commit()
     db.refresh(db_user)
     return True
@@ -100,6 +127,9 @@ def new_bill(db: Session, user_id: UUID):
     db.commit()
     db.refresh(db_bill)
     db_user.bills.append(db_bill)
+    for product in db_user.products:
+        product.article.stock -= product.quantity
+        db.refresh(product)
     db_user.products = []
     db.commit()
     db.refresh(db_user)

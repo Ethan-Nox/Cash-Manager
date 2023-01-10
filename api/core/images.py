@@ -53,8 +53,10 @@ def create_code(id: int):
 
     hash = hashlib.sha256()
     hash.update(str(id).encode())
+    code = str(int(hash.hexdigest(), 16))[:12]
     with open(PATH_CODES + "code_" + str(id) + ".jpeg", "wb") as f:
-        EAN13(str(int(hash.hexdigest(), 16))[:12], writer=ImageWriter()).write(f)
+        EAN13(code, writer=ImageWriter()).write(f)
+    return code
 
 @router.get("/codes/{article_id}", tags=["images"])
 async def get_code(id: int):
