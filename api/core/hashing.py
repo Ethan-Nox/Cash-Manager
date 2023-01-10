@@ -1,12 +1,13 @@
 from passlib.context import CryptContext
 
+# Init crypt engine
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class Hasher():
-    @staticmethod
+    @staticmethod # Compare and verify if the password provided is good
     def verify_password(plain_password, hashed_password):
         return pwd_context.verify(plain_password, hashed_password)
 
-    @staticmethod
+    @staticmethod # Get hashed password
     def get_password_hash(password):
         return pwd_context.hash(password)
