@@ -29,7 +29,9 @@ async def create_article(db: Session, article: ArticleSchema, file: UploadFile):
     db.add(db_article)
     db.commit()
     db.refresh(db_article)
-    create_code(db_article.id)
+    db_article.code = create_code(db_article.id)
+    db.commit()
+    db.refresh(db_article)
     return db_article
 
 def update_article(db: Session, article: ArticleSchema):
@@ -47,3 +49,5 @@ def update_article(db: Session, article: ArticleSchema):
 def get_article_by_name(db: Session, name: str):
     return db.query(ArticleModel).filter(ArticleModel.name == name).first()
 
+def get_article_by_code(db: Session, code: str):
+    return db.query(ArticleModel).filter(ArticleModel.code == code).first()

@@ -11,3 +11,4 @@ class Article(Base):
     category = Column(String)
     stock = Column(Integer, nullable=True)
     image = Column(String, nullable=True)
+    code = Column(String, nullable=True)
