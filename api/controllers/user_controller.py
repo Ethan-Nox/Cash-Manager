@@ -70,7 +70,7 @@ def login(db: Session, email: str, password: str):
     return user
 
 # Add article to user product list
-def add_article_to_user(db: Session, article_id: UUID, user_id: UUID, quantity: int):
+def add_article_to_user(db: Session, article_id: int, user_id: UUID, quantity: int):
     db_user: UserModel = get_user(db, user_id) # Get user by uuid from token
     # No need to verify if user exist since we already verified the token
     db_article: ArticleModel = get_article(db, article_id) # Get article from id asked
@@ -80,7 +80,10 @@ def add_article_to_user(db: Session, article_id: UUID, user_id: UUID, quantity: 
         article=db_article,
         quantity=quantity
     ) # Create product with article and quatity
-
+    if (db_product.quantity <= 0): # If quantity is null or negative
+        for product in db_user.products:
+            if product.article.id == db_product.article.id: # Delete product from user product list
+                db_user.products.remove(product)
     db.add(db_product)
     db.commit()
     db.refresh(db_product) # Save in the db
@@ -90,8 +93,19 @@ def add_article_to_user(db: Session, article_id: UUID, user_id: UUID, quantity: 
     db_user.products.append(db_product) # So the quantity is updated
     db.commit()
     db.refresh(db_user)
-
     return True # Everything went well
+
+def remove_article_to_user(db: Session, article_id: int, user_id: UUID):
+    db_user: UserModel = get_user(db, user_id) # Get user by uuid from token
+    # No need to verify if user exist since we already verified the token
+    db_article: ArticleModel = get_article(db, article_id) # Get article from id asked
+    if db_user is None: # But we need to verify the article
+        raise HTTPException(status_code=404, detail="Article not founnd")
+    for product in db_user.products:
+        if product.article.id == db_article.id: # Delete product from user product list
+            db_user.products.remove(product)
+            return True # Everything went well
+    return False # Article not in product list
 
 # Add article to user product list by scanning bar code
 def add_article_to_user_with_scan(db: Session, code: str, user_id: UUID):
