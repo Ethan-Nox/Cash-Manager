@@ -32,3 +32,6 @@ sqladmin
 #images
 pillow
 python-barcode
+
+#payment
+stripe
