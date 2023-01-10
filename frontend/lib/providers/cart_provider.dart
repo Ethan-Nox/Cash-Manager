@@ -9,7 +9,7 @@ class CartProvider extends ChangeNotifier {
   late String _image;
   late String _category;
   late int _stock;
-  late int _total;
+  int _total = 0;
 
   late List<Article_Model> items = [];
 
@@ -23,9 +23,9 @@ class CartProvider extends ChangeNotifier {
     _image = image;
     _category = category;
     _stock = stock;
-    _total = _quantity + _price.toInt();
+    _total += price.toInt();
     notifyListeners();
-
+    print(_total);
     items.add(Article_Model(
         name: _name,
         price: _price,
@@ -35,14 +35,15 @@ class CartProvider extends ChangeNotifier {
         description: '',
         id: 0));
 
-    print('object');
-    print(items);
+    // print('object');
+    // print(items);
   }
 
   List<Article_Model> getItems() {
     return items;
   }
 
-
-
+  int getTotal() {
+    return _total;
+  }
 }

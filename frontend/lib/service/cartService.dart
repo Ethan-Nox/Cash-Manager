@@ -8,7 +8,7 @@ class CartService {
 
   void addArticle(String name , double price, String image, String category, int stock) {
     
-    print(items);
+    // print(items);
   }
 
 

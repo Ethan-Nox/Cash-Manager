@@ -29,7 +29,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -227,7 +226,7 @@ class _LoginState extends State<Login> {
       final Map parsed = json.decode(response.body);
       // print(parsed['token']);
       // print(parsed['user']);
-      // print(parsed['token']['access_token']);
+      print(parsed['token']['access_token']);
       String token = parsed['token']['access_token'];
 
       LocalStorageService localStorageService = LocalStorageService();
