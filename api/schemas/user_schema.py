@@ -5,7 +5,14 @@ from uuid import UUID
 from schemas.product_schema import Product
 from schemas.bill_schema import Bill
 
-class UserBase(BaseModel):
+####################
+#       USER       #
+#                  #
+# Stock user data  #
+#                  #
+####################
+
+class UserBase(BaseModel): # User class for base
     firstname: str
     lastname: str
     email: EmailStr
@@ -15,12 +22,12 @@ class UserBase(BaseModel):
     products: list[Product] | None = []
     bills: list[Bill] | None = []
 
-class UserCreate(UserBase):
+class UserCreate(UserBase): # User class for base creation
     password: str
 
-class User(UserBase):
+class User(UserBase): # User class for generic usages
     class Config:
         orm_mode = True
 
-class UserForAdmin(User):
+class UserForAdmin(User): # User class for admin usages
     id: UUID
