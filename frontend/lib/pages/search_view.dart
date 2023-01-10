@@ -130,14 +130,17 @@ class _SearchState extends State<SearchView> {
         FutureBuilder<List<dynamic>>(
             future: article,
             builder: (context, snapshot) {
-              // print("snapshot.data");
-              // print(article);
-              // print(snapshot.data);
+              print("snapshot.data");
+              print(article);
+           
+              print(snapshot);
 
-              // article?.then((value) => print(value));
+              article?.then((value) => print(value));
 
-              // print(snapshot.hasData);
+              print("has data---------------------------");
+            
               if (snapshot.connectionState == ConnectionState.done) {
+                print(snapshot);
                 if (snapshot.data == null) {
                   return const Text("No data");
                 } else {

@@ -15,97 +15,70 @@ class CartView extends StatefulWidget {
 }
 
 class _CartViewState extends State<CartView> {
-  @override
-  void initState() {
-    super.initState();
-  }
-  // final List items = [
-  //   {
-  //     "price": 100.0,
-  //     "name": "Air force 1",
-  //     "description": "Basket",
-  //     "category": "Chaussure",
-  //     "image":
-  //         "https://www.courir.com/on/demandware.static/-/Sites-master-catalog-courir/default/dw2bc08c65/images/hi-res/001498199_101.png",
-  //     "stock": 100,
-  //     "id": 2
+  // final List item = [
+  //    {
+  //   "article": {
+  //     "price": 0,
+  //     "name": "string",
+  //     "description": "string",
+  //     "category": "string",
+  //     "stock": 0,
+  //     "id": 0,
+  //     "image": "string"
   //   },
-  //   {
-  //     "price": 350.0,
-  //     "name": "Iphone 11",
-  //     "description": "telephone apple",
-  //     "category": "Apple",
-  //     "image":
-  //         "https://boostit.cdiscount.com/wp-content/uploads/2020/05/iPhone11_Visuel1-DM-1.png",
-  //     "stock": 50,
-  //     "id": 1
-  //   }
+  //   "quantity": 0
+  // },
+  // {
+  //   "article": {
+  //     "price": 0,
+  //     "name": "string",
+  //     "description": "string",
+  //     "category": "string",
+  //     "stock": 0,
+  //     "id": 0,
+  //     "image": "string"
+  //   },
+  //   "quantity": 0
+  // },
   // ];
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   print("afficher la liste des produit");
+  //   print(item);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    List item = Provider.of<CartProvider>(context).getItems();
-    var i = 0;
-    int total = Provider.of<CartProvider>(context).getTotal();
+    var article = Provider.of<CartProvider>(context, listen: false).getCart();
+
     return SafeArea(
-      child: Scaffold(
-        floatingActionButton: ElevatedButton(
-          onPressed: () {
-            Provider.of<CartProvider>(context, listen: false).items.add(
-                Article_Model(
-                    name: "_name",
-                    price: 100,
-                    image: "gto.jpg",
-                    category: "Chaussure",
-                    stock: 100,
-                    description: 'test',
-                    id: i));
-            i += 1;
-            setState(() {
-              total =
-                  Provider.of<CartProvider>(context, listen: false).getTotal();
-            });
-          },
-          child: Text("Scan"),
-        ),
-        resizeToAvoidBottomInset: false,
-        body: Column(
+        child: Scaffold(
+      floatingActionButton: scan(),
+      resizeToAvoidBottomInset: false,
+      body: Center(
+        child: ListView(
           children: [
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.8,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: item.length,
-                  itemBuilder: (context, index) {
-                    return List_Panier(
-                      id: item[index].id,
-                      name: item[index].name,
-                      price: item[index].price,
-                      image: item[index].image,
-                      description: item[index].description,
-                      category: item[index].category,
-                      stock: item[index].stock,
-                    );
-                  },
-                )),
-            SizedBox(
-              width: 100,
-              child: Container(
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => payView(total: total),
-                          ));
-                    },
-                    child: Text("Payer")),
-              ),
-            ),
+            ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: article.length,
+              itemBuilder: (context, index) {
+                return List_Panier(
+                    id: article[index].article.id,
+                    name: article[index].article.name,
+                    price: article[index].article.price,
+                    image: article[index].article.image,
+                    category: article[index].article.category,
+                    stock: article[index].article.stock,
+                    description: article[index].article.description,
+                    quantity: article[index].quantity);
+              },
+            )
           ],
         ),
       ),
-    );
+    ));
   }
 }
