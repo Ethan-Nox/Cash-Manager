@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/pay_view.dart';
 import 'package:frontend/widgets/scan/scan.dart';
 import 'package:frontend/providers/cart_provider.dart';
 import 'package:frontend/widgets/list_panier.dart';
 import 'package:provider/provider.dart';
+
+import '../models/articleModel.dart';
 
 class CartView extends StatefulWidget {
   const CartView({Key? key}) : super(key: key);
@@ -51,11 +54,11 @@ class _CartViewState extends State<CartView> {
     var article = Provider.of<CartProvider>(context, listen: false).getCart();
 
     return SafeArea(
-      child: Scaffold(
-        floatingActionButton: scan(),
-        resizeToAvoidBottomInset: false,
-        body: Center(
-            child: ListView(   
+        child: Scaffold(
+      floatingActionButton: scan(),
+      resizeToAvoidBottomInset: false,
+      body: Center(
+        child: ListView(
           children: [
             ListView.builder(
               scrollDirection: Axis.vertical,
@@ -63,20 +66,19 @@ class _CartViewState extends State<CartView> {
               itemCount: article.length,
               itemBuilder: (context, index) {
                 return List_Panier(
-                  id: article[index].article.id,
-                  name: article[index].article.name,
-                  price: article[index].article.price,
-                  image: article[index].article.image,
-                  category: article[index].article.category,
-                  stock: article[index].article.stock,
-                  description: article[index].article.description,
-                  quantity: article[index].quantity
-                );
+                    id: article[index].article.id,
+                    name: article[index].article.name,
+                    price: article[index].article.price,
+                    image: article[index].article.image,
+                    category: article[index].article.category,
+                    stock: article[index].article.stock,
+                    description: article[index].article.description,
+                    quantity: article[index].quantity);
               },
             )
           ],
-        )),
+        ),
       ),
-    );
+    ));
   }
 }
