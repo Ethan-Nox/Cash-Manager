@@ -33,3 +33,14 @@ def add_article_to_user(article_id: str, quantity: int,db: Session = Depends(get
         return db_user.products
     else:
         raise HTTPException(status_code=404, detail="Can't add article")
+
+@router.patch("/scan_article", response_model=list[Product], tags=["users"])
+def add_article_to_user(code: str, db: Session = Depends(get_db), uuid: str = Depends(jwt.get_current_user_id)):
+    db_article = article_controller.get_article_by_code(db, code=code)
+    if db_article is None:
+        raise HTTPException(status_code=404, detail="Article not found")
+    if user_controller.add_article_to_user_with_scan(db, code=code, user_id=uuid) == True:
+        db_user: User = user_controller.get_user(db=db, user_id=uuid)
+        return db_user.products
+    else:
+        raise HTTPException(status_code=404, detail="Can't add article")
