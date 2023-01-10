@@ -96,32 +96,24 @@ class _List_ArticleState extends State<List_Article> {
                   var token = await localStorageService.getToken();
                   cartService.addToCart(widget.id, 1, token!);
 
-                   var list = cartService.addToCart(widget.id, 1, token!);
-                  print('list');
-                  print(list);
-
-
-              Provider.of<CartProvider>(context, listen: false).setCart(list);
-                  
-               
-
-            
-
+                  var list = cartService.addToCart(widget.id, 1, token!);
+                  // print('list');
+                  // print(list);
+                  Provider.of<CartProvider>(context, listen: false)
+                      .setCart(list);
                   // context
                   //     .read<CartProvider>()
                   //     .addArticle(widget.id,widget.description,widget.name, widget.price, widget.image, widget.category,  widget.stock);
                   print("add article");
 
-                  var a =  Provider.of<CartProvider>(context, listen: false).getCart();
-                  print('a');
-                  print(a);
+                  var a = Provider.of<CartProvider>(context, listen: false)
+                      .getCart();
 
                   if (widget.stock > 0) {
                     widget.stock--;
                   } else {
                     print('No more stock');
                   }
-                  print(widget.stock);
                 },
               )
             ],
