@@ -35,13 +35,12 @@ class payView extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 print("test1");
-                PaymentService().placePayment({
-                  'number': "4242424242424242",
-                  'exp_month': 2,
-                  'exp_year': 2024,
-                  'cvc': '123',
-                  'amount': 200
-                });
+                PaymentService().placePayment(
+                    number: "4242424242424242",
+                    exp_month: 2,
+                    exp_year: 2024,
+                    cvc: "123",
+                    amount: 200);
                 print("test2");
               },
               child: Text('Payer'),
