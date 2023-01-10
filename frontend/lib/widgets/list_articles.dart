@@ -1,11 +1,13 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
+import 'package:frontend/caches/sharedPreferences.dart';
 import 'package:frontend/providers/cart_provider.dart';
+import 'package:frontend/providers/user_provider.dart';
 import 'package:frontend/service/cartService.dart';
 import 'package:provider/provider.dart';
 
- class List_Article extends StatefulWidget {
+class List_Article extends StatefulWidget {
   final String name;
   final double price;
   final String image;
@@ -15,8 +17,7 @@ import 'package:provider/provider.dart';
   final String description;
 
   List_Article(
-      {
-      required this.id,
+      {required this.id,
       required this.name,
       required this.price,
       required this.description,
@@ -29,6 +30,7 @@ import 'package:provider/provider.dart';
 }
 
 class _List_ArticleState extends State<List_Article> {
+  var cartService = CartService();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -50,8 +52,8 @@ class _List_ArticleState extends State<List_Article> {
                 width: 100,
                 height: 100,
                 color: Colors.white,
-                child: Image.network("http://10.68.254.111:8080/images/${widget.image}"),
-                
+                child: Image.network(
+                    "http://10.68.254.111:8080/images/${widget.image}"),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -88,12 +90,31 @@ class _List_ArticleState extends State<List_Article> {
                   size: 30,
                   color: Color.fromARGB(255, 165, 53, 122),
                 ),
-                onPressed: () {
-                  context
-                      .read<CartProvider>()
-                      .addArticle( widget.id,widget.description,widget.name, widget.price, widget.image, widget.category,  widget.stock);
-                    print("add article");  
-                      print(context.read<CartProvider>().getItems());
+                onPressed: () async {
+                  LocalStorageService localStorageService =
+                      LocalStorageService();
+                  var token = await localStorageService.getToken();
+                  cartService.addToCart(widget.id, 1, token!);
+
+                   var list = cartService.addToCart(widget.id, 1, token!);
+                  print('list');
+                  print(list);
+
+
+              Provider.of<CartProvider>(context, listen: false).setCart(list);
+                  
+               
+
+            
+
+                  // context
+                  //     .read<CartProvider>()
+                  //     .addArticle(widget.id,widget.description,widget.name, widget.price, widget.image, widget.category,  widget.stock);
+                  print("add article");
+
+                  var a =  Provider.of<CartProvider>(context, listen: false).getCart();
+                  print('a');
+                  print(a);
 
                   if (widget.stock > 0) {
                     widget.stock--;

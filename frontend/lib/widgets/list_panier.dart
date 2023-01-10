@@ -55,7 +55,6 @@ class _List_PanierState extends State<List_Panier> {
                 width: MediaQuery.of(context).size.width * 0.2,
                 height: MediaQuery.of(context).size.height * 0.1,
                   child: Image.network("http://10.68.254.111:8080/images/${widget.image}"),
-                
               ),
               SizedBox(
                 child: Column(
@@ -92,7 +91,7 @@ class _List_PanierState extends State<List_Panier> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      context.read<CartProvider>().deleteArticle(widget.id);
+                
                     },
                     icon: const Icon(
                       Icons.delete,
@@ -116,7 +115,7 @@ class _List_PanierState extends State<List_Panier> {
                         IconButton(
                           onPressed: () {
 
-                            context.read<CartProvider>().removeQuantity();
+                            
 
                           },
                           icon: const Icon(
@@ -125,7 +124,7 @@ class _List_PanierState extends State<List_Panier> {
                           ),
                         ),
                         Text(
-                          context.read<CartProvider>().quantity.toString(),
+                         quantity.toString(),
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -133,9 +132,6 @@ class _List_PanierState extends State<List_Panier> {
                         ),
                         IconButton(
                           onPressed: () {
-
-                           context.read<CartProvider>().addQuantity(widget.id);
-
 
                           },
                           icon: const Icon(

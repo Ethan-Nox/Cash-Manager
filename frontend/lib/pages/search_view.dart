@@ -132,7 +132,8 @@ class _SearchState extends State<SearchView> {
             builder: (context, snapshot) {
               print("snapshot.data");
               print(article);
-              print(snapshot.data);
+           
+              print(snapshot);
 
               article?.then((value) => print(value));
 
