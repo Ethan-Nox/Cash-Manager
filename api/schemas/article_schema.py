@@ -7,6 +7,7 @@ class ArticleBase(BaseModel):
     description: str | None = None
     category: str | None = None
     stock: int | None = None
+    code: str | None = None
 
 
 class ArticleCreate(ArticleBase):
