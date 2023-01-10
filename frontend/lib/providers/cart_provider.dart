@@ -5,16 +5,19 @@ import 'package:frontend/models/cart.dart';
 import 'package:http/http.dart' as http;
 
 class CartProvider extends ChangeNotifier {
+
+
   late List<Cart> cart = [];
 
-  void setCart(List<Cart> newcart) {
-    print(cart);
-    cart = newcart;
-    print(cart);
+  Future<void>  setCart(Future<List<Cart>> newcart) async {
+    cart = await newcart;
     notifyListeners();
   }
 
   List<Cart> getCart() {
     return cart;
   }
+
+
+
 }

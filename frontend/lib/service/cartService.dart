@@ -12,7 +12,7 @@ class CartService {
   
    var https = dotenv.env['HTTPS'];
 
-   addToCart(int article_id, int quantity, String token) async {
+   Future<List<Cart>> addToCart(int article_id, int quantity, String token) async {
 
     final queryParameters = {
       'article_id': article_id,
@@ -32,6 +32,9 @@ class CartService {
         var cart = json.decode(response.body) as List;
         // ignore: avoid_print
         print(cart);
+
+        var article  = cart[0]['article'];
+        print(article);
         return cart
             .map((cart) => Cart.fromJson(cart))
             .toList();

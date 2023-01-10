@@ -12,8 +12,6 @@ class CartView extends StatefulWidget {
 }
 
 class _CartViewState extends State<CartView> {
-  late List item = Provider.of<CartProvider>(context, listen: true).getCart();
-
   // final List item = [
   //    {
   //   "article": {
@@ -50,25 +48,28 @@ class _CartViewState extends State<CartView> {
 
   @override
   Widget build(BuildContext context) {
+    var article = Provider.of<CartProvider>(context, listen: false).getCart();
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Center(
-            child: ListView(
+            child: ListView(   
           children: [
             ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: item.length,
+              itemCount: article.length,
               itemBuilder: (context, index) {
                 return List_Panier(
-                  id: item[index]["article"].id,
-                  name: item[index]["article"].name,
-                  price: item[index]["article"].price,
-                  image: item[index]["article"].image,
-                  category: item[index]["article"].category,
-                  stock: item[index]["article"].stock,
-                  description: item[index]["article"].description,
+                  id: article[index].article.id,
+                  name: article[index].article.name,
+                  price: article[index].article.price,
+                  image: article[index].article.image,
+                  category: article[index].article.category,
+                  stock: article[index].article.stock,
+                  description: article[index].article.description,
+                  quantity: article[index].quantity
                 );
               },
             )

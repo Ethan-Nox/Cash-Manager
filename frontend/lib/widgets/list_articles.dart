@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_const, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:frontend/caches/sharedPreferences.dart';

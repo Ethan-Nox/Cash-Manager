@@ -8,11 +8,12 @@ import 'package:provider/provider.dart';
 
   final int id;
   final String name;
-  final double price;
+  final num price;
   final String image;
   final String category;
   final int stock;
   final String description;
+  final int quantity;
 
    List_Panier({
     required this.id,
@@ -22,6 +23,7 @@ import 'package:provider/provider.dart';
     required this.category,
     required this.stock,
     required this.description,
+    required this.quantity,
   });
 
   @override
@@ -29,7 +31,7 @@ import 'package:provider/provider.dart';
 }
 
 class _List_PanierState extends State<List_Panier> {
-  int quantity = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +126,7 @@ class _List_PanierState extends State<List_Panier> {
                           ),
                         ),
                         Text(
-                         quantity.toString(),
+                          widget.quantity.toString(),
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

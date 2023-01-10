@@ -139,7 +139,6 @@ class _SearchState extends State<SearchView> {
 
               print("has data---------------------------");
             
-
               if (snapshot.connectionState == ConnectionState.done) {
                 print(snapshot);
                 if (snapshot.data == null) {
