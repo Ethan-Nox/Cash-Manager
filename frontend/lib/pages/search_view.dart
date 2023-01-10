@@ -214,14 +214,14 @@ class _SearchState extends State<SearchView> {
     setState(() {
       this.token = token;
     });
-    print("---------------------------------");
-    print(token);
-    print("---------------------------------");
+    // print("---------------------------------");
+    // print(token);
+    // print("---------------------------------");
     article = ArticleService().getArticles(token!);
     article!.then(
       (value) => print(value),
     );
 
-    print(article);
+    // print(article);
   }
 }

@@ -56,7 +56,7 @@ class _List_PanierState extends State<List_Panier> {
                 margin: const EdgeInsets.only(right: 10),
                 width: MediaQuery.of(context).size.width * 0.2,
                 height: MediaQuery.of(context).size.height * 0.1,
-                  child: Image.network("http://10.68.254.111:8080/images/${widget.image}"),
+                  child: Image.network("http://20.111.52.214:8080/images/${widget.image}"),
               ),
               SizedBox(
                 child: Column(

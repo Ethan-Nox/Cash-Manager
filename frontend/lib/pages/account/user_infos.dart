@@ -442,7 +442,7 @@ class _UserInfosPageState extends State<UserInfosPage> {
       });
     }
 
-    print(msg);
+    // print(msg);
 
     try {
       var response = await http.patch(Uri.parse(url),

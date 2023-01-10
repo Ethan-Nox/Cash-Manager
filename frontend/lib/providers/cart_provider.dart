@@ -17,7 +17,4 @@ class CartProvider extends ChangeNotifier {
   List<Cart> getCart() {
     return cart;
   }
-
-
-
 }
